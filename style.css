@@ -26,10 +26,10 @@ header {
     flex-wrap: wrap;
 }
 
-.logo {
-    height: 60px;
-    width: auto;
-    margin-right: 10px;
+#logo {
+  width: 120px;
+  height: auto;
+  margin: 0 auto;
 }
 
 .lab-title {
