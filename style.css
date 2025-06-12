@@ -93,3 +93,7 @@ footer {
         margin: 10px 0;
     }
 }
+.logo {
+  height: 80px;
+  width: auto; /* 自动保持原比例 */
+}

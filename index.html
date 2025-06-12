@@ -1,59 +1,52 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>科研实验组 - 安康学院医学院</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>科研实验组</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <!-- Header -->
     <header>
-        <div class="logo">
-            <img src="images/logo.png" alt="科研实验组Logo" />
-            <h1>科研实验组</h1>
-            <h2>安康学院医学院</h2>
+        <div class="container header-content">
+            <img src="images/logo.png" alt="科研实验组 Logo" class="logo">
+            <nav>
+                <ul>
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#advisor">导师介绍</a></li>
+                    <li><a href="#members">成员介绍</a></li>
+                    <li><a href="#research">研究方向</a></li>
+                    <li><a href="#bioinfo">生物信息学研究</a></li>
+                    <li><a href="#microrna">MicroRNA分子机制研究</a></li>
+                    <li><a href="#publications">成果展示</a></li>
+                    <li><a href="#support">技术支持</a></li>
+                    <li><a href="#photos">实验室照片</a></li>
+                    <li><a href="#admission">招生信息</a></li>
+                </ul>
+            </nav>
         </div>
-        <nav>
-            <ul>
-                <li><a href="#home">首页</a></li>
-                <li><a href="#advisor">导师介绍</a></li>
-                <li><a href="#members">成员介绍</a></li>
-                <li><a href="#research">研究方向</a></li>
-                <li><a href="#publications">成果展示</a></li>
-                <li><a href="#support">技术支持</a></li>
-                <li><a href="#photos">实验室照片</a></li>
-                <li><a href="#admission">招生信息</a></li>
-            </ul>
-        </nav>
     </header>
 
-    <!-- Main content -->
-    <main>
-        <!-- Home Section -->
+    <main class="container">
         <section id="home" class="section">
-            <h2>欢迎来到科研实验组</h2>
-            <p>本实验组隶属于安康学院医学院，研究方向涵盖 MicroRNA 与神经系统疾病分子机制、医学生物信息学、血液蛋白脂类、中药研究、疾病动物模型研究等领域，致力于推动生物医药科研与临床应用转化。</p>
+            <h1>科研实验组</h1>
+            <p>科研实验组聚焦MicroRNA与神经系统疾病、中药、生物信息学、动物模型等领域。实验组致力于交叉融合研究，推动本地区医学科研发展。</p>
         </section>
 
-        <!-- Advisor Section -->
         <section id="advisor" class="section">
             <h2>导师介绍</h2>
-            <p>刘春阳 副主任讲师，研究方向包括 MicroRNA 与神经系统疾病、中药与疾病动物模型、医学生物信息学等，主持/参与多项国家及省级科研项目，发表多篇高水平学术论文。</p>
+            <p>刘春阳讲师，医学院实验中心副主任，主攻miRNA对HIE离子通道基因的调控机制；谢娟平教授，院长，擅长中药提取与药效研究。</p>
         </section>
 
-        <!-- Members Section -->
         <section id="members" class="section">
             <h2>成员介绍</h2>
-            <p>团队成员信息将在后续完善。</p>
+            <p>（此处可后续自行添加成员列表）</p>
         </section>
 
-        <!-- Research Section -->
         <section id="research" class="section">
             <h2>研究方向</h2>
             <ul>
-                <li>MicroRNA 与神经系统疾病分子机制研究</li>
+                <li>MicroRNA与神经系统疾病分子机制研究</li>
                 <li>医学生物信息学</li>
                 <li>血液蛋白脂类相关研究</li>
                 <li>中药相关研究</li>
@@ -61,45 +54,42 @@
             </ul>
         </section>
 
-        <!-- Publications Section -->
+        <section id="bioinfo" class="section">
+            <h2>生物信息学研究</h2>
+            <p>结合现代生物信息学工具，深入解析基因表达、调控网络与疾病的关系，为精准医学提供数据支持与算法基础。</p>
+        </section>
+
+        <section id="microrna" class="section">
+            <h2>MicroRNA分子机制研究</h2>
+            <p>重点探索miRNA在缺氧缺血性脑病（HIE）中的调控机制，涉及信号通路、离子通道与蛋白质表达的调节作用。</p>
+        </section>
+
         <section id="publications" class="section">
             <h2>成果展示</h2>
-            <h3>科研项目</h3>
-            <p>miRNA对HIE离子通道基因的调控作用及机制研究，黑龙江省科学技术厅。项目编号：LH2020H007，项目组主要研究人员。</p>
-            <h3>发表论文（部分）</h3>
-            <ol>
-                <li>徐辉 等，佳木斯地区汉族人群SCN1A基因多态性与HIE相关性研究，黑龙江医药科学，2018。</li>
-                <li>于子芮 等，宫内窘迫新生儿发生缺氧缺血性脑病的危险因素分析，中国现代医学杂志，2019。</li>
-                <li>刘春阳 等，MicroRNA在缺氧缺血性脑病调控机制中的研究进展，海南医学院学报，2020。</li>
-                <!-- 可继续补充 -->
-            </ol>
+            <p>包括科研项目、论文发表、专利、获奖项目等成果。（详细成果列表建议用表格呈现，可后续添加）</p>
         </section>
 
-        <!-- Support Section -->
         <section id="support" class="section">
             <h2>技术支持</h2>
-            <p>本实验组拥有完善的实验设备与技术支持能力，支持各类分子生物学、动物实验及中药活性成分分析研究。</p>
+            <p>欢迎联系实验组获取技术支持与合作信息。邮箱：SAMPSONLIU19940502@163.com</p>
         </section>
 
-        <!-- Photos Section -->
         <section id="photos" class="section">
             <h2>实验室照片</h2>
-            <p>图片内容待完善。</p>
+            <p>（可后续添加图片展示）</p>
         </section>
 
-        <!-- Admission Section -->
         <section id="admission" class="section">
             <h2>招生信息</h2>
-            <p>敬请关注，后续发布最新招生信息。</p>
+            <p>（预留区域，待添加）</p>
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer>
-        <p>地址：安康学院江北校区医学院秦巴实验楼108-2 | 邮箱：SAMPSONLIU19940502@163.com</p>
+    <footer class="footer">
+        <p>地址：108-2 | 版权所有 © 科研实验组 网页运营维护中</p>
+        <p>网站维护负责人：刘文龙 联系电话：15596827232</p>
     </footer>
 
     <script src="script.js"></script>
 </body>
 </html>
-
