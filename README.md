@@ -1,1 +1,1 @@
-# LCY-lab-website
+# Sampson-lab-website
