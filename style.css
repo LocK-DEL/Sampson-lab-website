@@ -1,144 +1,170 @@
-/* style.css */
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+/* 通用字体与背景 */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
-    background-color: #f4f9f6;
-    color: #333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f2f8f5;
+  color: #2c3e50;
+  line-height: 1.6;
 }
 
+/* 顶部导航栏 */
 header {
-    background-color: #e0f2e9;
-    padding: 20px 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: relative;
-}
-
-.header-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    flex-wrap: wrap;
+  background-color: #d9f0e6;
+  padding: 20px 0;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 #logo {
-  width: 120px;
+  width: 80px;
   height: auto;
-  margin: 0 auto;
+  display: block;
+  margin: 0 auto 10px;
 }
 
 .lab-title {
-    font-size: 28px;
-    font-weight: bold;
-    color: #1a3e3e;
-    flex-grow: 1;
-    margin-left: 15px;
+  font-size: 32px;
+  color: #145a32;
+  font-weight: bold;
 }
 
+/* 导航菜单 */
 nav {
-    background-color: #b8e0c5;
-    padding: 10px 0;
+  background-color: #a9dfbf;
+  padding: 10px 0;
 }
 
 nav ul {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-}
-
-nav ul li {
-    margin: 5px 15px;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
 }
 
 nav ul li a {
-    text-decoration: none;
-    color: #1a3e3e;
-    font-weight: bold;
-    transition: color 0.3s;
+  text-decoration: none;
+  color: #1b4f4f;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
 }
 
 nav ul li a:hover {
-    color: #007960;
+  background-color: #117a65;
+  color: #fff;
 }
 
-section {
-    padding: 40px 20px;
-    max-width: 1000px;
-    margin: auto;
+/* 页面内容块 */
+main.container {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 0 20px;
 }
 
-h2 {
-    border-bottom: 2px solid #b8e0c5;
-    padding-bottom: 10px;
-    color: #2c6e61;
+.section {
+  margin-bottom: 50px;
 }
 
-footer {
-    background-color: #b8e0c5;
-    text-align: center;
-    padding: 15px 10px;
-    color: #1a3e3e;
-    font-size: 14px;
-    margin-top: 30px;
+.section h2 {
+  font-size: 24px;
+  border-left: 5px solid #48c9b0;
+  padding-left: 15px;
+  margin-bottom: 15px;
+  color: #145a32;
 }
 
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-@media (max-width: 768px) {
-    .header-container {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .lab-title {
-        margin-top: 10px;
-        margin-left: 0;
-        font-size: 24px;
-        text-align: left;
-    }
-
-    nav ul {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    nav ul li {
-        margin: 8px 0;
-    }
-}
+/* 表格样式 */
 .award-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 15px;
-  font-size: 16px;
-  background-color: #f9f9f9;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  font-size: 15px;
 }
 
-.award-table th, .award-table td {
-  border: 1px solid #ddd;
-  padding: 10px;
+.award-table th,
+.award-table td {
+  padding: 12px;
+  border: 1px solid #ccc;
   text-align: center;
 }
 
 .award-table th {
-  background-color: #eef2f7;
-  font-weight: bold;
-  color: #333;
+  background-color: #d4efdf;
+  color: #1a3e3e;
 }
 
 .award-table tr:nth-child(even) {
-  background-color: #fcfcfc;
+  background-color: #f9f9f9;
+}
+
+/* 图集展示 */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.gallery img {
+  width: 220px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.gallery img:hover {
+  transform: scale(1.05);
+}
+
+/* 页脚 */
+footer.footer {
+  background-color: #a9dfbf;
+  color: #1b4f4f;
+  text-align: center;
+  padding: 20px 10px;
+  font-size: 14px;
+  margin-top: 50px;
+}
+
+/* 响应式适配 */
+@media (max-width: 768px) {
+  .lab-title {
+    font-size: 26px;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .gallery img {
+    width: 90%;
+  }
+}
+.faculty-member {
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px dashed #cce8db;
+}
+
+.faculty-member h3 {
+  color: #1a3e3e;
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.faculty-member p {
+  color: #333;
+  line-height: 1.6;
 }
