@@ -6,35 +6,37 @@
     <title>SAMPSON科研实验组</title>
     <link rel="stylesheet" href="style.css">
 </head>
- <body>
+<a id="top"></a> 
+<body>
     <header>
  <div class="header-top">
   <div class="logo-title-wrapper">
-    <img src="images/logo.png" alt="Logo" id="logo">
+    <img src="images/logo.png" alt="Logo" id="logo" loading="lazy">
     <h1 class="lab-title">SAMPSON科研实验组</h1>
   </div>
 </div>
-  <nav>
-    <ul>
+     <nav>
+      <ul>
       <li><a href="#home">首页</a></li>
       <li><a href="#advisor">导师介绍</a></li>
       <li><a href="#members">成员介绍</a></li>
       <li><a href="#research">研究方向</a></li>
       <li><a href="#publications">成果展示</a></li>
       <li><a href="#postgraduate">考研与考博成果</a></li>
+      <li><a href="#employment">就业单位</a></li>
+      <li><a href="#recognition_awards">表彰奖励</a></li>
       <li><a href="#support">技术支持</a></li>
       <li><a href="#photos">实验室照片</a></li>
       <li><a href="#admission">招生信息</a></li>
-    </ul>
-  </nav>
+     </ul>
+     </nav>
+</body>
  </header>
-
-
-    <main class="container">
+    <main class="container" role="main">
         <section id="home" class="section">
             <h1>SAMPSON科研实验组</h1>
             <p>科研实验组聚焦MicroRNA与神经系统疾病、中药、生物信息学、动物模型等领域。实验组致力于交叉融合研究，推动本地区医学科研发展。</p>
-        </section>
+          </section>
 
      <section id="advisor" class="section">
         <h2>导师介绍</h2>
@@ -64,19 +66,19 @@
           <div class="member-grid">
     
           <div class="member-card">
-           <img src="images/member1.jpg" alt="成员1照片">
+           <img src="images/member1.jpg" alt="成员1照片" loading="lazy">
            <p class="member-name">刘春阳</p>
            <p class="member-role">总组长</p>
          </div>
 
          <div class="member-card">
-           <img src="images/member2.jpg" alt="成员2照片">
+           <img src="images/member2.jpg" alt="成员2照片" loading="lazy">
            <p class="member-name">于子芮</p>
            <p class="member-role">总秘书长</p>
          </div>
 
          <div class="member-card">
-           <img src="images/member3.jpg" alt="成员3照片">
+           <img src="images/member3.jpg" alt="成员3照片" loading="lazy">
            <p class="member-name">张琳</p>
            <p class="member-role">总副组长</p>
          </div>
@@ -114,11 +116,11 @@
             <h2>成果展示</h2>
             <p>包括科研项目、论文发表、专利、获奖项目等成果。（详细成果列表建议用表格呈现，可后续添加）</p>
             <div class="gallery">
-            <img src="images/imagexuhui.jpg" alt="kypic1">
-            <img src="images/imagelcy1.jpg" alt="kypic2">
-            <img src="images/imagelcy2.jpg" alt="kypic3">
-            <img src="images/imagelcy3.jpg" alt="kypic4">
-            <img src="images/imageyzr1.jpg" alt="zl1">
+            <img src="images/imagexuhui.jpg" alt="kypic1" loading="lazy">
+            <img src="images/imagelcy1.jpg" alt="kypic2" loading="lazy">
+            <img src="images/imagelcy2.jpg" alt="kypic3" loading="lazy">
+            <img src="images/imagelcy3.jpg" alt="kypic4" loading="lazy">
+            <img src="images/imageyzr1.jpg" alt="zl1" loading="lazy">
             </div>
             <h3>学生竞赛获奖情况</h3>
             <table class="award-table">
@@ -183,7 +185,6 @@
             </tr>
           </tbody>
         </table>
-
         </section>
 <section id="postgraduate" class="section">
   <h2>考研与考博成果</h2>
@@ -242,10 +243,58 @@
         <td>陕西中医药大学</td>
         <td>硕士研究生</td>
       </tr>
-      <!-- 可继续添加更多数据 -->
     </tbody>
   </table>
 </section>
+<section id="employment" class="section">
+   <h2>就业单位</h2>
+      <table class="award-table">
+      <thead>
+       <tr>
+        <th>姓名</th>
+        <th>就业单位</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>张三</td>
+        <td>中山大学附属第三医院</td>
+      </tr>
+      <tr>
+        <td>李四</td>
+        <td>华西医院</td>
+      </tr>
+      <tr>
+        <td>王五</td>
+        <td>北京大学医学部</td>
+      </tr>
+      <!-- 如需添加更多行，继续往下复制 <tr>...</tr> 结构 -->
+    </tbody>
+  </table>
+</section>
+<section id="recognition_awards" class="section">
+   <h2>表彰奖励</h2>
+      <table class="award-table">
+      <thead>
+       <tr>
+        <th>姓名</th>
+        <th>获奖情况</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>丁乐乐</td>
+        <td>2025届优秀毕业生</td>
+      </tr>
+      <tr>
+        <td>蔡修燕</td>
+        <td>2025届优秀毕业生</td>
+      </tr>
+      <!-- 如需添加更多行，继续往下复制 <tr>...</tr> 结构 -->
+    </tbody>
+  </table>
+</section>
+
         <section id="support" class="section">
             <h2>技术支持</h2>
             <p>欢迎联系实验组获取技术支持与合作信息。邮箱：SAMPSONLIU19940502@163.com</p>
@@ -268,5 +317,5 @@
     </footer>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
