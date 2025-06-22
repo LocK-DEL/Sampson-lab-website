@@ -5,9 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SAMPSON科研实验组</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+      nav ul li.dropdown {
+        position: relative;
+      }
+      nav ul li.dropdown ul.dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f0f8f5;
+        min-width: 160px;
+        z-index: 1000;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        border-radius: 6px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      }
+      nav ul li.dropdown:hover ul.dropdown-content {
+        display: block;
+      }
+      nav ul li.dropdown ul.dropdown-content li a {
+        display: block;
+        padding: 10px 14px;
+        text-decoration: none;
+        color: #1a3e3e;
+      }
+      nav ul li.dropdown ul.dropdown-content li a:hover {
+        background-color: #cceee2;
+      }
+    </style>
 </head>
-<a id="top"></a> 
 <body>
+<a id="top"></a> 
 <header>
  <div class="header-top">
   <div class="logo-title-wrapper">
@@ -15,24 +44,34 @@
     <h1 class="lab-title">SAMPSON科研实验组</h1>
   </div>
 </div>
-     <nav>
-      <ul>
-      <li><a href="#home">首页</a></li>
-      <li><a href="#advisor">导师介绍</a></li>
-      <li><a href="#members">成员介绍</a></li>
-      <li><a href="#research">研究方向</a></li>
-      <li><a href="#publications">成果展示</a></li>
-      <li><a href="#postgraduate">考研与考博成果</a></li>
-      <li><a href="#employment">就业单位</a></li>
-      <li><a href="#recognition_awards">表彰奖励</a></li>
-      <li><a href="#support">技术支持</a></li>
-      <li><a href="#photos">实验室照片</a></li>
-      <li><a href="#admission">招生信息</a></li>
-     </ul>
-     </nav>
-</body>
- </header>
-    <main class="container" role="main">
+<nav>
+  <ul>
+    <li><a href="#home">首页</a></li>
+    <li class="dropdown">
+      <a href="#">实验组介绍</a>
+      <ul class="dropdown-content">
+        <li><a href="#advisor">导师介绍</a></li>
+        <li><a href="#members">成员介绍</a></li>
+        <li><a href="#style">风采展示</a></li>
+      </ul>
+    </li>
+    <li><a href="#research">研究方向</a></li>
+    <li class="dropdown">
+      <a href="#">科研成果</a>
+      <ul class="dropdown-content">
+        <li><a href="#publications">成果展示</a></li>
+        <li><a href="#postgraduate">考研与考博成果</a></li>
+        <li><a href="#employment">就业单位</a></li>
+        <li><a href="#recognition_awards">表彰奖励</a></li>
+      </ul>
+    </li>
+    <li><a href="#support">技术支持</a></li>
+    <li><a href="#photos">实验室照片</a></li>
+    <li><a href="#admission">招生信息</a></li>
+  </ul>
+</nav>
+</header>
+<main class="container" role="main">
         <section id="home" class="section">
             <h1>SAMPSON科研实验组</h1>
             <p>科研实验组聚焦MicroRNA与神经系统疾病、中药、生物信息学、动物模型等领域。实验组致力于交叉融合研究，推动本地区医学科研发展。</p>
@@ -72,7 +111,7 @@
          </div>
 
          <div class="member-card">
-           <img src="images/member2.jpg" alt="实验组总秘书长于子芮" loading="lazy">
+           <img src="images/member2.jpg" alt="实验组总秘书长于子芮" loading="lazy" ">
            <p class="member-name">于子芮</p>
            <p class="member-role">总秘书长</p>
          </div>
@@ -82,8 +121,41 @@
            <p class="member-name">张琳</p>
            <p class="member-role">总副组长</p>
          </div>
+         <div class="member-card">
+           <img src="images/member4.jpg" alt="实验组总副组长丁乐乐" loading="lazy">
+           <p class="member-name">丁乐乐</p>
+           <p class="member-role">总副组长</p>
+         </div>
+         <div class="member-card">
+           <img src="images/member5.jpg" alt="实验组总副组长张愉茸" loading="lazy">
+           <p class="member-name">张愉茸</p>
+           <p class="member-role">总副组长</p>
+         </div>
+         <div class="member-card">
+           <img src="images/member6.jpg" alt="实验组总副组长刘文龙" loading="lazy">
+           <p class="member-name">刘文龙</p>
+           <p class="member-role">总副组长</p>
+         </div>
        </section>
-
+      <section id="style-showcase" class="section">
+        <h2>实验组成员风采展示</h2>
+        <div class="masonry-gallery">
+        <img src="images/style1.jpg" alt="风采图1" loading="lazy" >
+        <img src="images/style2.jpg" alt="风采图2" loading="lazy" >
+        <img src="images/style3.jpg" alt="风采图3" loading="lazy" >
+        <img src="images/style4.jpg" alt="风采图4" loading="lazy" >
+        <img src="images/style5.jpg" alt="风采图5" loading="lazy" >
+        <img src="images/style6.jpg" alt="风采图6" loading="lazy" >
+        <img src="images/style7.jpg" alt="风采图7" loading="lazy" >
+        <img src="images/style8.jpg" alt="风采图8" class="large" loading="lazy" >
+        <img src="images/style9.jpg" alt="风采图9" class="large" loading="lazy" >
+        <img src="images/style10.jpg" alt="风采图10" loading="lazy" >
+        <img src="images/style11.jpg" alt="风采图11" loading="lazy" >
+        <img src="images/style12.jpg" alt="风采图12" loading="lazy" >
+        <img src="images/style13.jpg" alt="风采图13" loading="lazy" >
+    <!-- 如需更多照片，可继续添加 <img> 标签 -->
+     </div>
+      </section>
       <section id="research" class="section">
         <h2>研究方向</h2>
         <ul style="list-style-type: disc; padding-left: 20px;">

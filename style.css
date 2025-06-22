@@ -8,14 +8,14 @@
 /* 通用字体与背景 */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f2f8f5;
+  background-color: #f4f9f9;
   color: #2c3e50;
   line-height: 1.6;
 }
 
 /* 顶部导航栏 */
 header {
-  background-color: #d9f0e6;
+  background-color: #d4edea;
   padding: 20px 0;
   text-align: center;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -29,15 +29,19 @@ header {
 }
 
 .lab-title {
-  font-size: 32px;
-  color: #145a32;
+  font-size: 28px;
+  color: #136c60;
   font-weight: bold;
 }
 
-/* 导航菜单 */
+/* 顶部菜单 */
 nav {
-  background-color: #a9dfbf;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #c4e7e2;
   padding: 10px 0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 nav ul {
@@ -50,19 +54,18 @@ nav ul {
 
 nav ul li a {
   text-decoration: none;
-  color: #1b4f4f;
-  font-weight: bold;
+  color: #045c4b;
+  font-weight: 600;
   padding: 8px 12px;
-  border-radius: 4px;
+  border-radius: 6px;
   transition: background-color 0.3s;
 }
 
 nav ul li a:hover {
-  background-color: #117a65;
+  background-color: #b2ddd8;
   color: #fff;
 }
 
-/* 页面内容块 */
 main.container {
   max-width: 1000px;
   margin: 30px auto;
@@ -81,33 +84,40 @@ main.container {
   color: #145a32;
 }
 
-/* 表格样式 */
-.award-table {
+/* 表格 */
+.award-table,
+.employment-table {
   width: 100%;
   border-collapse: collapse;
   background-color: #ffffff;
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
   font-size: 15px;
+  margin-top: 20px;
 }
 
 .award-table th,
-.award-table td {
+.award-table td,
+.employment-table th,
+.employment-table td {
   padding: 12px;
   border: 1px solid #ccc;
   text-align: center;
 }
 
-.award-table th {
+.award-table th,
+.employment-table th {
   background-color: #d4efdf;
   color: #1a3e3e;
 }
 
-.award-table tr:nth-child(even) {
+.award-table tr:nth-child(even),
+.employment-table tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-/* 图集展示 */
-.gallery {
+/* 图集 */
+.gallery,
+.bioinfo-gallery {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -115,7 +125,8 @@ main.container {
   margin-top: 20px;
 }
 
-.gallery img {
+.gallery img,
+.bioinfo-gallery img {
   width: 220px;
   height: auto;
   border-radius: 8px;
@@ -123,39 +134,18 @@ main.container {
   transition: transform 0.3s ease;
 }
 
-.gallery img:hover {
+.gallery img:hover,
+.bioinfo-gallery img:hover {
   transform: scale(1.05);
 }
 
-/* 页脚 */
-footer.footer {
-  background-color: #a9dfbf;
-  color: #1b4f4f;
-  text-align: center;
-  padding: 20px 10px;
-  font-size: 14px;
-  margin-top: 50px;
-}
-
-/* 响应式适配 */
-@media (max-width: 768px) {
-  .lab-title {
-    font-size: 26px;
-  }
-
-  nav ul {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .gallery img {
-    width: 90%;
-  }
-}
+/* 教师和成员 */
 .faculty-member {
   margin-bottom: 25px;
-  padding-bottom: 15px;
-  border-bottom: 1px dashed #cce8db;
+  padding: 15px 20px;
+  background-color: #f1f9f6;
+  border-left: 4px solid #b8e0c5;
+  border-radius: 6px;
 }
 
 .faculty-member h3 {
@@ -168,13 +158,7 @@ footer.footer {
   color: #333;
   line-height: 1.6;
 }
-.faculty-member {
-  background-color: #f1f9f6;
-  border-left: 4px solid #b8e0c5;
-  padding: 15px 20px;
-  margin: 15px 0;
-  border-radius: 6px;
-}
+
 .member-grid {
   display: flex;
   flex-wrap: wrap;
@@ -215,22 +199,80 @@ footer.footer {
   font-size: 14px;
   color: #666;
 }
-.bioinfo-gallery {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 20px;
+
+/* 风采展示 */
+.style-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  padding-top: 10px;
 }
 
-.bioinfo-gallery img {
-  width: 220px;
+.style-gallery img {
+  width: 100%;
   height: auto;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  transition: transform 0.3s;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
 
-.bioinfo-gallery img:hover {
+.style-gallery img:hover {
   transform: scale(1.05);
+}
+
+/* 页脚 */
+footer.footer {
+  background-color: #a9dfbf;
+  color: #1b4f4f;
+  text-align: center;
+  padding: 20px 10px;
+  font-size: 14px;
+  margin-top: 50px;
+}
+
+/* 响应式适配 */
+@media (max-width: 768px) {
+  .lab-title {
+    font-size: 26px;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .gallery img,
+  .bioinfo-gallery img {
+    width: 90%;
+  }
+}
+.masonry-gallery {
+  column-count: 3;
+  column-gap: 16px;
+}
+
+.masonry-gallery img {
+  width: 100%;
+  margin-bottom: 16px;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+  break-inside: avoid;
+}
+
+.masonry-gallery img:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .masonry-gallery {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .masonry-gallery {
+    column-count: 1;
+  }
 }
