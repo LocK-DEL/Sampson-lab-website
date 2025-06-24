@@ -36,26 +36,17 @@
     </style>
 </head>
 <body>
-  <video id="background-video" autoplay muted loop playsinline>
-  <source src="https://cdn.jsdelivr.net/gh/LocK-DEL/Sampson-lab-website@latest/videos/background.mp4" type="video/mp4">
-</video>
-<div id="background-overlay"></div>
-<!-- 备用图片背景 -->
-<div id="fallback-background"></div>
+   <video autoplay muted loop id="background-video">
+    <source src="video/background.mp4" type="video/mp4">
+    您的浏览器不支持 video 标签。
+  </video>
+  <!-- 遮罩层 -->
+  <div id="background-overlay"></div>
+  <!-- 备用图片背景 -->
+  <div id="fallback-background"></div>
 
-<!-- 视频背景 -->
-<video id="background-video" autoplay muted loop>
-  <source src="background.mp4" type="video/mp4">
-</video>
-
-<!-- 遮罩层 -->
-<div id="background-overlay"></div>
-
-<!-- 页面主体内容 -->
-<header> ... </header>
-<main> ... </main>
-  <!-- 接下来是 header 和 main 内容 -->
-<a id="top"></a> 
+     <!-- 页面主体内容 -->
+   <a id="top"></a>
 <header>
  <div class="header-top">
   <div class="logo-title-wrapper">
