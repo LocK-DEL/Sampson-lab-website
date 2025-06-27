@@ -480,3 +480,56 @@ body {
 .big-photo-container img:hover {
   transform: scale(1.03);
 }
+.honor-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  justify-items: center;
+  margin-top: 20px;
+}
+
+.honor-card {
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  max-width: 220px;
+}
+
+.honor-card:hover {
+  transform: translateY(-5px);
+}
+
+.honor-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.honor-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  margin-top: 10px;
+}
+
+.honor-title {
+  font-size: 15px;
+  color: #d0d0d0;
+  margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+  .honor-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .honor-grid {
+    grid-template-columns: 1fr;
+  }
+}
