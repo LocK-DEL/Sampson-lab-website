@@ -1,0 +1,138 @@
+/* mobile.css 完整版，基于你的 index.css 结构优化 */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  background-color: #0b1d2d;
+  color: #e0e0e0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#logo {
+  width: 60px;
+  margin: 0 auto 10px;
+}
+
+.lab-title {
+  font-size: 22px;
+  text-align: center;
+  padding: 10px;
+}
+
+nav ul {
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 0;
+}
+
+nav ul li a {
+  display: block;
+  padding: 12px 20px;
+  font-size: 16px;
+}
+
+.gallery img,
+.bioinfo-gallery img,
+.big-photo-container img,
+.style-gallery img,
+.masonry-gallery img,
+.honor-card img,
+.member-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.member-grid,
+.style-gallery,
+.honor-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.big-photo-container img {
+  width: 95%;
+}
+
+.masonry-gallery {
+  column-count: 1;
+}
+
+.gallery img:hover,
+.bioinfo-gallery img:hover,
+.style-gallery img:hover,
+.member-card:hover,
+.honor-card:hover,
+.big-photo-container img:hover {
+  transform: none;
+}
+
+.section h2 {
+  font-size: 20px;
+  text-align: center;
+}
+
+.section p {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.award-table,
+.employment-table {
+  font-size: 13px;
+  overflow-x: auto;
+  display: block;
+}
+
+#background-video,
+#background-overlay {
+  display: none;
+}
+
+#fallback-background {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+nav ul li.dropdown > a::after {
+  content: " ▼";
+  font-size: 1em;
+}
+
+main.container {
+  padding: 0 10px;
+}
+
+input, textarea, select, button {
+  font-size: 16px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* 保证内容不被导航遮挡 */
+header {
+  position: relative;
+  z-index: 1000;
+}
+
+/* 适配 honor-grid 不同尺寸 */
+.honor-grid {
+  grid-template-columns: 1fr;
+  justify-items: center;
+}
+
+/* 防止 UC、QQ浏览器字体放大混乱 */
+body {
+  text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
