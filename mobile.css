@@ -4,6 +4,18 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent; /* 取消安卓蓝色高亮 */
+}
+
+
+html {
+  -webkit-text-size-adjust: 100%; /* 防止UC、QQ强制缩放字体 */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -135,4 +147,26 @@ header {
 body {
   text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
+}
+@media (max-width: 768px) {
+  #background-video {
+    display: none;
+  }
+  #fallback-background {
+    display: block;
+  }
+}
+@media (max-width: 768px) {
+  nav ul li a {
+    padding: 12px 16px;
+    font-size: 18px;
+  }
+}
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img {
+  max-width: 100%;
+  height: auto;
 }
