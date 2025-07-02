@@ -25,19 +25,33 @@ footer {
   position: relative;
   z-index: 1;
 }
+.header-top {
+    padding: 10px 40px;  /* 左右各留40px空间，避免太靠边 */
+}
+
+.logo-title-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 整体居中 */
+  gap: 24px; /* logo和标题之间的间距，可根据需要调整 */
+  padding: 20px 0;
+}
 
 #logo {
-  width: 80px;
-  height: auto;
+  height: 90px;
+  width: auto;
   display: block;
-  margin: 0 auto 10px;
 }
 
 .lab-title {
-  font-size: 28px;
-  color: #f0bf57;
-  font-weight: bold;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  margin: 0;
+  font-size: 2.2rem;
+  color: #1a3e3e;
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  letter-spacing: 2px;
+  line-height: 1.2;
+  white-space: nowrap;
 }
 
 nav {
@@ -532,4 +546,50 @@ body {
   .honor-grid {
     grid-template-columns: 1fr;
   }
+}
+#backToTop {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 999;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    outline: none;
+    padding: 12px 18px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    display: none; /* 默认隐藏 */
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#backToTop:hover {
+    background-color: #2980b9;
+    transform: scale(1.1);
+}
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    z-index: 999;
+}
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    z-index: 1000;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
 }

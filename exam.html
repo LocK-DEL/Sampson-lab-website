@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>在线考试系统</title>
+    <link rel="stylesheet" href="exam.css">
+</head>
+<body>
+
+<header>
+    <h1>科研实验组在线考试</h1>
+</header>
+
+<main class="container">
+    <div id="exam-section">
+        <h2>选择题</h2>
+        
+        <div class="question">
+            <p>1. 实验室研究方向不包括以下哪项？</p>
+            <label><input type="radio" name="q1" value="A"> A. MicroRNA与神经系统</label><br>
+            <label><input type="radio" name="q1" value="B"> B. 中药与疾病动物模型</label><br>
+            <label><input type="radio" name="q1" value="C"> C. 电竞游戏开发</label><br>
+            <label><input type="radio" name="q1" value="D"> D. 生物信息学分析</label>
+        </div>
+
+        <div class="question">
+            <p>2. 组内主要采用哪种生物信息学软件？</p>
+            <label><input type="radio" name="q2" value="A"> A. GraphPad Prism</label><br>
+            <label><input type="radio" name="q2" value="B"> B. Adobe Photoshop</label><br>
+            <label><input type="radio" name="q2" value="C"> C. SPSS</label><br>
+            <label><input type="radio" name="q2" value="D"> D. CorelDRAW</label>
+        </div>
+
+        <button id="submit-btn">提交试卷</button>
+        
+        <div id="result"></div>
+    </div>
+</main>
+
+<button id="backToTop" title="返回顶部">↑</button>
+
+<script src="exam.js"></script>
+
+</body>
+</html>

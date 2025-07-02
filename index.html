@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
   <script>
 if (window.innerWidth <= 768) {
     window.location.href = "mobile.html";
@@ -38,6 +39,24 @@ if (window.innerWidth <= 768) {
       nav ul li.dropdown ul.dropdown-content li a:hover {
         background-color: #cceee2;
       }
+      #backToTop {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      z-index: 500; 
+      display: none;
+      padding: 10px 15px;
+      background-color: #1a3e3e;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    #backToTop:hover {
+      background-color: #145c5c;
+    }
     </style>
 </head>
 <body>
@@ -45,7 +64,6 @@ if (window.innerWidth <= 768) {
     <source src="video/background.mp4" type="video/mp4">
     您的浏览器不支持 video 标签。
   </video>
-  </div>
   <!-- 遮罩层 -->
   <div id="background-overlay"></div>
   <!-- 备用图片背景 -->
@@ -56,15 +74,19 @@ if (window.innerWidth <= 768) {
 <header>
  <div class="header-top">
   <div class="logo-title-wrapper">
-    <img src="https://cdn.jsdelivr.net/gh/LocK-DEL/Sampson-lab-website@latest/images/logo.png" alt="Logo" id="logo">
-    <h1 class="lab-title">SAMPSON科研实验组</h1>
+    <div class="logo-container">
+      <img src="https://cdn.jsdelivr.net/gh/LocK-DEL/Sampson-lab-website@latest/images/logo.png" alt="Logo" id="logo">
+    </div>
+    <div class="title-container">
+      <h1 class="lab-title">SAMPSON科研实验组</h1>
+    </div>
   </div>
 </div>
 <nav>
   <ul>
     <li><a href="#home">首页</a></li>
     <li class="dropdown">
-      <a href="#">实验组简介</a>
+      <a href="#" class="dropdown-toggle">实验组简介</a>
       <ul class="dropdown-content">
         <li><a href="#advisor">导师介绍</a></li>
         <li><a href="#members">成员介绍</a></li>
@@ -101,7 +123,7 @@ if (window.innerWidth <= 768) {
 <main class="container" role="main">
         <section id="home" class="section">
             <h1>SAMPSON科研实验组</h1>
-            <p>科研实验组聚焦MicroRNA与神经系统疾病、中药、生物信息学、动物模型等领域。实验组致力于交叉融合研究，推动本地区医学科研发展。</p>
+            <p>科研实验组聚焦microRNA与神经系统疾病、中药、生物信息学、动物模型等领域。实验组致力于交叉融合研究，推动本地区医学科研发展。</p>
           </section>
 
      <section id="advisor" class="section">
@@ -301,30 +323,24 @@ if (window.innerWidth <= 768) {
            <img src="images/microRNA2.jpg" alt="诺贝尔奖获得者" style="max-width: 80%; height: auto; margin-top: 20px;">
            <img src="images/microRNA3.jpg" alt="诺贝尔奖获得者" style="max-width: 80%; height: auto; margin-top: 20px;">
            <img src="images/microRNA4.jpg" alt="诺贝尔奖获得者" style="max-width: 80%; height: auto; margin-top: 20px;">
+            <p>重点探索miRNA在缺氧缺血性脑病（HIE）中的调控机制，涉及信号通路、离子通道与蛋白质表达的调节作用。</p>
           </section>
-           <li>医学生物信息学</li>
-           <li>血液蛋白脂类相关研究</li>
+           <li>生物信息学</li>
+           
+           <section id="bioinfo" class="section">
+           <p>本研究方向聚焦于数据挖掘、基因组分析、miRNA作用机制等...</p>
+
+           <div class="bioinfo-gallery">
+           <img src="https://cdn.jsdelivr.net/gh/LocK-DEL/Sampson-lab-website@latest/images/bio1.jpg" alt="生物信息图1" loading="lazy">
+           <img src="https://cdn.jsdelivr.net/gh/LocK-DEL/Sampson-lab-website@latest/images/bio2.jpg" alt="生物信息图2" loading="lazy">
+           <img src="https://cdn.jsdelivr.net/gh/LocK-DEL/Sampson-lab-website@latest/images/bio3.jpg" alt="生物信息图3" loading="lazy">
+           <img src="https://cdn.jsdelivr.net/gh/LocK-DEL/Sampson-lab-website@latest/images/bio4.jpg" alt="生物信息图4" loading="lazy">
+           </div>
+         </section>
            <li>中药相关研究</li>
            <li>疾病动物模型相关研究</li>
         </ul>
       </section>
-
-      <section id="bioinfo" class="section">
-       <h2>生物信息学</h2>
-       <p>本研究方向聚焦于数据挖掘、基因组分析、miRNA作用机制等...</p>
-
-       <div class="bioinfo-gallery">
-       <img src="https://cdn.jsdelivr.net/gh/LocK-DEL/Sampson-lab-website@latest/images/bio1.jpg" alt="生物信息图1" loading="lazy">
-       <img src="https://cdn.jsdelivr.net/gh/LocK-DEL/Sampson-lab-website@latest/images/bio2.jpg" alt="生物信息图2" loading="lazy">
-       <img src="https://cdn.jsdelivr.net/gh/LocK-DEL/Sampson-lab-website@latest/images/bio3.jpg" alt="生物信息图3" loading="lazy">
-       <img src="https://cdn.jsdelivr.net/gh/LocK-DEL/Sampson-lab-website@latest/images/bio4.jpg" alt="生物信息图4" loading="lazy">
-       </div>
-     </section>
-
-        <section id="microrna" class="section">
-            <h2>MicroRNA分子机制研究</h2>
-            <p>重点探索miRNA在缺氧缺血性脑病（HIE）中的调控机制，涉及信号通路、离子通道与蛋白质表达的调节作用。</p>
-        </section>
 
         <section id="publications" class="section">
             <h2>成果展示</h2>
@@ -336,7 +352,7 @@ if (window.innerWidth <= 768) {
              <img src="https://cdn.jsdelivr.net/gh/LocK-DEL/Sampson-lab-website@latest/images/imagelcy3.jpg" alt="kypic4" loading="lazy">
              <img src="https://cdn.jsdelivr.net/gh/LocK-DEL/Sampson-lab-website@latest/images/imageyzr1.jpg" alt="zl1" loading="lazy">
             </div>
-            <h3>学生竞赛获奖情况</h3>
+            <h3>竞赛获奖情况</h3>
             <table class="award-table">
             <thead>
             <tr>
@@ -392,7 +408,7 @@ if (window.innerWidth <= 768) {
             </tr>
             <tr>
               <td>刘文龙</td>
-              <td>“艾”芯秦脉国内首款植物抑菌智能缓释穿戴装置革新者</td>
+              <td>"艾"芯秦脉国内首款植物抑菌智能缓释穿戴装置革新者</td>
               <td>第十一届全国青年科普创新实验暨作品大赛</td>
               <td>省级三等奖</td>
               <td>2025</td>
@@ -545,7 +561,7 @@ if (window.innerWidth <= 768) {
       </tr>
       <tr>
         <td>4</td>
-        <td>The Role of Cystathionine‑β‑Synthase,  HH2S, and miRNA‑377 in Hypoxic‑Ischemic Encephalopathy: Insights from Human and Animal Studies</td>
+        <td>The Role of Cystathionine‑β‑Synthase,  HH2S, and miRNA‑377 in Hypoxic‑Ischemic Encephalopathy: Insights from Human and Animal Studies</td>
         <td>SCI</td>
         <td>21 October 2023</td>
         <td>Journal of Molecular Neuroscience</td>
@@ -607,9 +623,7 @@ if (window.innerWidth <= 768) {
 </section>
 
     <script src="script.js"></script>
-  </body>
-</html>
-        <section id="photos" class="section">
+    <section id="photos" class="section">
             <h2>实验室照片</h2>
             <p>（可后续添加图片展示）</p>
         </section>
@@ -628,7 +642,52 @@ if (window.innerWidth <= 768) {
         <p>地址：108-2 | 版权所有© 科研实验组 网页运营维护中</p>
         <p>网站维护负责人：刘文龙 联系电话：15596827232</p>
     </footer>
+    <button id="backToTop" title="返回顶部">↑</button>
 
-    <script src="script.js"></script>
+  </body>
+</html>
+   <script>
+// 返回顶部功能
+window.onscroll = function() {
+  var btn = document.getElementById("backToTop");
+  if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+    btn.style.display = "block";
+  } else {
+    btn.style.display = "none";
+  }
+};
+document.getElementById("backToTop").onclick = function() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+};
+
+// 下拉菜单点击控制
+document.querySelectorAll('.dropdown-toggle').forEach(function(toggle) {
+  toggle.addEventListener('click', function(e) {
+    e.preventDefault(); 
+    const parent = this.parentElement;
+    parent.classList.toggle('open');
+
+    // 关闭其他下拉
+    document.querySelectorAll('.dropdown').forEach(function(other) {
+      if (other !== parent) {
+        other.classList.remove('open');
+      }
+    });
+  });
+});
+
+// 点击空白处关闭所有下拉
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.dropdown')) {
+    document.querySelectorAll('.dropdown').forEach(function(item) {
+      item.classList.remove('open');
+    });
+  }
+});
+</script>
+
   </body>
 </html>
