@@ -1,46 +1,40 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <script>
-if (window.innerWidth <= 768) {
-    window.location.href = "mobile.html";
-}
-</script>  
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
   <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAMPSON科研实验组</title>
-    <link rel="stylesheet" href="mobile.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <style>
-      nav ul li.dropdown {
-        position: relative;
-      }
-      nav ul li.dropdown ul.dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f0f8f5;
-        min-width: 160px;
-        z-index: 1000;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        border-radius: 6px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-      }
-      nav ul li.dropdown:hover ul.dropdown-content {
-        display: block;
-      }
-      nav ul li.dropdown ul.dropdown-content li a {
-        display: block;
-        padding: 10px 14px;
-        text-decoration: none;
-        color: #1a3e3e;
-      }
-      nav ul li.dropdown ul.dropdown-content li a:hover {
-        background-color: #cceee2;
-      }
-      #backToTop {
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAMPSON科研实验组</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    nav ul li.dropdown {
+      position: relative;
+    }
+    nav ul li.dropdown ul.dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f0f8f5;
+      min-width: 160px;
+      z-index: 1000;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+    nav ul li.dropdown:hover ul.dropdown-content {
+      display: block;
+    }
+    nav ul li.dropdown ul.dropdown-content li a {
+      display: block;
+      padding: 10px 14px;
+      text-decoration: none;
+      color: #1a3e3e;
+    }
+    nav ul li.dropdown ul.dropdown-content li a:hover {
+      background-color: #cceee2;
+    }
+    #backToTop {
       position: fixed;
       bottom: 40px;
       right: 40px;
@@ -58,33 +52,36 @@ if (window.innerWidth <= 768) {
     #backToTop:hover {
       background-color: #145c5c;
     }
-    </style>
+  </style>
 </head>
 <body>
    <video autoplay muted loop id="background-video">
     <source src="video/background.mp4" type="video/mp4">
     您的浏览器不支持 video 标签。
   </video>
-  </div>
   <!-- 遮罩层 -->
   <div id="background-overlay"></div>
   <!-- 备用图片背景 -->
   <div id="fallback-background"></div>
 
-     <!-- 页面主体内容 -->
+   <!-- 页面主体内容 -->
    <a id="top"></a>
 <header>
  <div class="header-top">
   <div class="logo-title-wrapper">
-    <img src="https://cdn.jsdelivr.net/gh/LocK-DEL/Sampson-lab-website@latest/images/logo.png" alt="Logo" id="logo">
-    <h1 class="lab-title">SAMPSON科研实验组</h1>
+    <div class="logo-container">
+      <img src="https://cdn.jsdelivr.net/gh/LocK-DEL/Sampson-lab-website@latest/images/logo.png" alt="Logo" id="logo">
+    </div>
+    <div class="title-container">
+      <h1 class="lab-title">SAMPSON科研实验组</h1>
+    </div>
   </div>
 </div>
 <nav>
   <ul>
     <li><a href="#home">首页</a></li>
     <li class="dropdown">
-      <a href="#">实验组简介</a>
+      <a href="#" class="dropdown-toggle">实验组简介</a>
       <ul class="dropdown-content">
         <li><a href="#advisor">导师介绍</a></li>
         <li><a href="#members">成员介绍</a></li>
@@ -93,15 +90,13 @@ if (window.innerWidth <= 768) {
         <li><a href="#recognition_awards">表彰奖励</a></li>
       </ul>
     </li>
-    
     <li class="dropdown">
-  <a href="#research">研究方向</a>
-  <ul class="dropdown-content">
-    <li><a href="#microRNA">microRNA</a></li>
-    <li><a href="#TCM">中药学</a></li>
-  </ul>
-</li>
-
+      <a href="#research">研究方向</a>
+      <ul class="dropdown-content">
+        <li><a href="#microRNA">microRNA</a></li>
+        <li><a href="#TCM">中药学</a></li>
+      </ul>
+    </li>
     <li class="dropdown">
       <a href="#">成果</a>
       <ul class="dropdown-content">
