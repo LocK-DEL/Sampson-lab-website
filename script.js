@@ -1,24 +1,30 @@
-// 可扩展功能，如导航动画、滚动特效等
-console.log("科研实验组网页已加载");
+console.log("科研实验组网页功能初始化");
+
 document.addEventListener("DOMContentLoaded", function () {
+  
+  /*** 侧边栏切换 ***/
   const toggleBtn = document.querySelector(".toggle-btn");
   const sidenav = document.querySelector(".sidenav");
   const mainContent = document.querySelector(".main-content");
 
-  toggleBtn?.addEventListener("click", () => {
-    sidenav.classList.toggle("collapsed");
-    mainContent.classList.toggle("collapsed");
-  });
-});
+  if (toggleBtn && sidenav && mainContent) {
+    toggleBtn.addEventListener("click", () => {
+      sidenav.classList.toggle("collapsed");
+      mainContent.classList.toggle("collapsed");
+    });
+  }
 
-document.addEventListener("DOMContentLoaded", () => {
+  /*** 图片懒加载 ***/
   const images = document.querySelectorAll("img.lazy-blur-img");
-  const observer = new IntersectionObserver((entries, observer) => {
+  const imgObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
-      if(entry.isIntersecting){
+      if (entry.isIntersecting) {
         const img = entry.target;
-        img.src = img.dataset.src;
-        img.onload = () => img.classList.add("loaded");
+        const src = img.dataset.src;
+        if (src) {
+          img.src = src;
+          img.onload = () => img.classList.add("loaded");
+        }
         observer.unobserve(img);
       }
     });
@@ -26,66 +32,54 @@ document.addEventListener("DOMContentLoaded", () => {
     threshold: 0.1
   });
 
-  images.forEach(img => observer.observe(img));
-});
-document.addEventListener('DOMContentLoaded', function () {
-  // 下拉菜单点击展开适配手机
+  images.forEach(img => imgObserver.observe(img));
+
+  /*** 下拉菜单优化，兼容移动端点击和桌面悬停 ***/
   const dropdowns = document.querySelectorAll('nav ul li.dropdown');
 
   dropdowns.forEach(dropdown => {
     const link = dropdown.querySelector('a');
     const submenu = dropdown.querySelector('ul.dropdown-content');
 
-    link.addEventListener('click', function (e) {
-      // 防止链接跳转
-      e.preventDefault();
+    if (!link || !submenu) return;
 
-      // 关闭其他菜单
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      const isVisible = submenu.style.display === 'block';
+
       dropdowns.forEach(d => {
-        if (d !== dropdown) {
-          d.querySelector('ul.dropdown-content').style.display = 'none';
-        }
+        const sub = d.querySelector('ul.dropdown-content');
+        if (sub) sub.style.display = 'none';
       });
 
-      // 切换当前菜单显示隐藏
-      if (submenu.style.display === 'block') {
-        submenu.style.display = 'none';
-      } else {
-        submenu.style.display = 'block';
-      }
+      submenu.style.display = isVisible ? 'none' : 'block';
     });
   });
 
-  // 点击其他地方自动关闭下拉菜单
   document.addEventListener('click', function (e) {
     if (!e.target.closest('nav')) {
       dropdowns.forEach(d => {
-        d.querySelector('ul.dropdown-content').style.display = 'none';
+        const sub = d.querySelector('ul.dropdown-content');
+        if (sub) sub.style.display = 'none';
       });
     }
   });
-});
-document.addEventListener("DOMContentLoaded", function() {
-    const btn = document.getElementById("backToTop");
-    if (!btn) return;
-    window.addEventListener("scroll", function() {
-        if (window.scrollY > 300) {
-            btn.style.display = "block";
-        } else {
-            btn.style.display = "none";
-        }
+
+  /*** 返回顶部按钮 ***/
+  const backBtn = document.getElementById("backToTop");
+  if (backBtn) {
+    window.addEventListener("scroll", () => {
+      backBtn.style.display = window.scrollY > 300 ? "block" : "none";
     });
-    btn.addEventListener("click", function(e) {
-        e.stopPropagation(); // 防止冒泡影响导航
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
+
+    backBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
-});
-document.addEventListener('DOMContentLoaded', function() {
+  }
+
+  /*** 自动跳转移动端，开发期间注释，正式用放开 ***/
   // if (window.innerWidth <= 768) {
   //   window.location.href = "mobile.html";
   // }
 });
-
