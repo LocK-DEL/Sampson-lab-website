@@ -141,13 +141,19 @@ nav ul li a {
   display: block;
 }
 
-#background-video,
-#background-overlay {
-  display: none;
+#background-video {
+  display: none !important;
 }
 
 #fallback-background {
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  display: block !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: url('images/backup.jpg') center center / cover no-repeat, linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  z-index: -3;
 }
 
 nav ul li.dropdown > a::after {
