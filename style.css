@@ -593,4 +593,41 @@ body {
 .dropdown:hover .dropdown-content {
     display: block;
 }
+/* 微调字体和布局，确保大屏不变，小屏更友好 */
+@media (max-width: 1400px) {
+    body {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 1200px) {
+    body {
+        font-size: 14px;
+    }
+    .container {
+        padding: 0 10px;
+    }
+}
+
+@media (max-width: 992px) {
+    nav ul {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .lab-title {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .lab-title {
+        font-size: 20px;
+    }
+    .gallery img {
+        width: 95%;
+    }
+    .container {
+        padding: 0 5px;
+    }
+}
 
