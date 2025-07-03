@@ -11,8 +11,9 @@ document.addEventListener("DOMContentLoaded", function () {
     toggleBtn.addEventListener("click", () => {
       sidenav.classList.toggle("collapsed");
       mainContent.classList.toggle("collapsed");
+        });
+      }
     });
-  }
 
   /*** 图片懒加载 ***/
   const images = document.querySelectorAll("img.lazy-blur-img");
@@ -74,12 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     backBtn.addEventListener("click", (e) => {
       e.stopPropagation();
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  }
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          });
+        }
 
-  /*** 自动跳转移动端，开发期间注释，正式用放开 ***/
-  // if (window.innerWidth <= 768) {
-  //   window.location.href = "mobile.html";
-  // }
-});
