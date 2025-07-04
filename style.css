@@ -690,3 +690,57 @@ body {
 .award-book tbody tr:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
+/* 默认 honor-grid 样式，适用于桌面端 */
+.honor-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 默认3列 */
+  gap: 30px;
+  justify-items: center;
+  margin-top: 20px;
+}
+
+/* honor-card 样式保持不变 */
+.honor-card {
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  max-width: 220px;
+}
+
+.honor-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.honor-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  margin-top: 10px;
+}
+
+.honor-title {
+  font-size: 15px;
+  color: #d0d0d0;
+  margin-top: 5px;
+}
+
+/* 手机端 三人一排 */
+@media (max-width: 768px) {
+  .honor-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+}
+
+/* 超小屏 单列 */
+@media (max-width: 480px) {
+  .honor-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
