@@ -170,9 +170,15 @@ main.container {
 .member-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
   justify-content: center;
-  margin-top: 20px;
+  gap: 15px;
+}
+
+.member-card {
+  flex: 1 1 22%;
+  max-width: 180px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .member-card {
@@ -630,4 +636,57 @@ body {
         padding: 0 5px;
     }
 }
+@media (max-width: 768px) {
+  .member-card {
+    flex: 1 1 40%; /* 中小屏两人一排 */
+    max-width: 160px;
+  }
+}
 
+@media (max-width: 480px) {
+  .member-card {
+    flex: 1 1 48%; /* 手机屏可两人一排 */
+    max-width: 150px;
+  }
+}
+/* 统一表格外观 */
+.award-table,
+.award-book {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+  color: #fff;
+  font-size: 15px;
+}
+
+/* 表格边框、内边距 */
+.award-table th,
+.award-table td,
+.award-book th,
+.award-book td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+/* 表头高亮 */
+.award-table th,
+.award-book th {
+  background-color: #2c3e50;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* 表格响应式外框，防止小屏幕溢出 */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* 鼠标悬停高亮 */
+.award-table tbody tr:hover,
+.award-book tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
