@@ -879,7 +879,14 @@ document.addEventListener('click', function(e) {
     });
   }
 });
-</script>
-<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.min.js"></script>
+   </script>
+   <script async src="https://cdn.jsdelivr.net/gh/diygod/busuanzi.js@2.3/busuanzi.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        if (typeof Busuanzi !== 'undefined') {
+          Busuanzi.fetch();
+        }
+      });
+    </script>
   </body>
 </html>
