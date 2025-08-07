@@ -744,3 +744,8 @@ body {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+.literature-img {
+  max-width: 200px;
+  height: auto;
+  margin: 10px;
+}
