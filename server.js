@@ -7,6 +7,7 @@ const path = require('path');
 
 const app = express();
 
+// 中间件设置
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -16,6 +17,7 @@ app.use(session({
   saveUninitialized: false,
 }));
 
+// 初始化数据库（内存型）
 const db = new sqlite3.Database(':memory:');
 
 db.serialize(() => {
@@ -28,7 +30,7 @@ db.serialize(() => {
   `);
 });
 
-// 注册
+// ✅ 注册：成功后跳转到登录页
 app.post('/register', async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) return res.status(400).send('缺少用户名或密码');
@@ -39,11 +41,11 @@ app.post('/register', async (req, res) => {
     if (err) {
       return res.status(400).send('用户名已存在');
     }
-    res.send('注册成功');
+    res.redirect('/login.html');  // ✅ 注册成功后跳转到登录页
   });
 });
 
-// 登录
+// ✅ 登录：成功后跳转主页
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
   db.get(`SELECT * FROM users WHERE username = ?`, [username], async (err, user) => {
@@ -53,7 +55,7 @@ app.post('/login', (req, res) => {
     if (!match) return res.status(400).send('密码错误');
 
     req.session.userId = user.id;
-    res.send('登录成功');
+    res.redirect('/index.html');  // ✅ 登录成功后跳转到首页
   });
 });
 
@@ -63,13 +65,12 @@ app.post('/logout', (req, res) => {
   res.send('已退出登录');
 });
 
-// 受保护的页面示例
+// 受保护页面示例
 app.get('/profile', (req, res) => {
   if (!req.session.userId) return res.status(401).send('未登录');
 
   db.get(`SELECT username FROM users WHERE id = ?`, [req.session.userId], (err, user) => {
     if (err || !user) return res.status(400).send('用户不存在');
-
     res.send(`欢迎你，${user.username}`);
   });
 });
@@ -77,6 +78,7 @@ app.get('/profile', (req, res) => {
 // 提供静态页面
 app.use(express.static(path.join(__dirname, 'public')));
 
+// 启动服务器
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`服务器启动 http://localhost:${PORT}`);
