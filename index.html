@@ -190,6 +190,7 @@
        <p class="member-role">总副组长</p>
       </div>
 
+
       <div class="member-card">
        <img src="http://www.sampsonlab.space/images/member6.jpg" class="member-photo" alt="实验组总副组长刘文龙" loading="lazy">
        <p class="member-name">刘文龙</p>
@@ -232,11 +233,6 @@
        <p class="member-role">竞赛项目部部长</p>
       </div>
       
-      <div class="member-card">
-       <img src="http://www.sampsonlab.space/images/member12.jpg" class="member-photo" alt="实验组王雪华" loading="lazy">
-       <p class="member-name">王雪华</p>
-       <p class="member-role">科研部秘书长</p>
-      </div>
 
       <div class="member-card">
        <img src="http://www.sampsonlab.space/images/member15.jpg" class="member-photo" alt="实验组李璐" loading="lazy">
@@ -352,13 +348,6 @@
       </div>
     
       <div class="honor-card">
-       <img src="http://www.sampsonlab.space/images/honor3.jpg" alt="王雪华" loading="lazy">
-       <h3 class="honor-name">王雪华</h3>
-       <p class="honor-title">学术研究先进个人</p>
-      </div>
-
-
-      <div class="honor-card">
        <img src="http://www.sampsonlab.space/images/honor5.jpg" alt="李璐" loading="lazy">
        <h3 class="honor-name">李璐</h3>
        <p class="honor-title">突出贡献奖</p>
@@ -425,10 +414,97 @@
       </section>
       <section id="microRNA" style="padding: 50px 0; text-align: center;">
         <h2>诺贝尔奖获得者</h2>
-        <img src="http://www.sampsonlab.space/images/microRNA1.jpg" alt="诺贝尔奖获得者1" style="max-width: 80%; height: auto; margin-top: 20px;" loading="lazy">
-        <img src="http://www.sampsonlab.space/images/microRNA2.jpg" alt="诺贝尔奖获得者2" style="max-width: 80%; height: auto; margin-top: 20px;" loading="lazy">
-        <img src="http://www.sampsonlab.space/images/microRNA3.jpg" alt="诺贝尔奖获得者3" style="max-width: 80%; height: auto; margin-top: 20px;" loading="lazy">
-        <img src="http://www.sampsonlab.space/images/microRNA4.jpg" alt="诺贝尔奖获得者4" style="max-width: 80%; height: auto; margin-top: 20px;" loading="lazy">
+        <div class="carousel">
+          <input type="radio" name="carousel" id="carousel-1" checked>
+          <input type="radio" name="carousel" id="carousel-2">
+          <input type="radio" name="carousel" id="carousel-3">
+          <input type="radio" name="carousel" id="carousel-4">
+          <div class="carousel-images">
+            <div class="carousel-image img1">
+              <img src="http://www.sampsonlab.space/images/microRNA1.jpg" alt="诺贝尔奖获得者1" loading="lazy">
+            </div>
+            <div class="carousel-image img2">
+              <img src="http://www.sampsonlab.space/images/microRNA2.jpg" alt="诺贝尔奖获得者2" loading="lazy">
+            </div>
+            <div class="carousel-image img3">
+              <img src="http://www.sampsonlab.space/images/microRNA3.jpg" alt="诺贝尔奖获得者3" loading="lazy">
+            </div>
+            <div class="carousel-image img4">
+              <img src="http://www.sampsonlab.space/images/microRNA4.jpg" alt="诺贝尔奖获得者4" loading="lazy">
+            </div>
+          </div>
+          <div class="carousel-controls">
+            <label for="carousel-1"></label>
+            <label for="carousel-2"></label>
+            <label for="carousel-3"></label>
+            <label for="carousel-4"></label>
+          </div>
+        </div>
+      </section>
+      <style>
+      .carousel {
+        position: relative;
+        width: 80%;
+        max-width: 600px;
+        margin: 30px auto 0;
+        height: 350px;
+        overflow: hidden;
+      }
+      .carousel input[type="radio"] {
+        display: none;
+      }
+      .carousel-images {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+      .carousel-image {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        opacity: 0;
+        transition: opacity 0.6s;
+        text-align: center;
+      }
+      .carousel-image img {
+        max-width: 100%;
+        max-height: 340px;
+        margin: 0 auto;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      }
+      #carousel-1:checked ~ .carousel-images .img1,
+      #carousel-2:checked ~ .carousel-images .img2,
+      #carousel-3:checked ~ .carousel-images .img3,
+      #carousel-4:checked ~ .carousel-images .img4 {
+        opacity: 1;
+        z-index: 2;
+      }
+      .carousel-controls {
+        position: absolute;
+        bottom: 18px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 12px;
+      }
+      .carousel-controls label {
+        display: block;
+        width: 16px;
+        height: 16px;
+        background: #cceee2;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 2px solid #1a3e3e;
+        transition: background 0.3s;
+      }
+      #carousel-1:checked ~ .carousel-controls label[for="carousel-1"],
+      #carousel-2:checked ~ .carousel-controls label[for="carousel-2"],
+      #carousel-3:checked ~ .carousel-controls label[for="carousel-3"],
+      #carousel-4:checked ~ .carousel-controls label[for="carousel-4"] {
+        background: #1a3e3e;
+      }
+      </style>
         <p>重点探索miRNA在缺氧缺血性脑病（HIE）中的调控机制，涉及信号通路、离子通道与蛋白质表达的调节作用。</p>
       </section>
       <section id="bioinfo" class="section">
@@ -601,13 +677,13 @@
         <td>国家级</td>
        </tr>
        <tr>
-        <td>王雨欣</td>
-        <td>2024年国际医护英语三级考试（METS-3）</td>
+        <td>丁乐乐</td>
+        <td>2025年实用新型专利</td>
         <td>国家级</td>
        </tr>
        <tr>
-        <td>丁乐乐</td>
-        <td>2025年实用新型专利</td>
+        <td>王雨欣</td>
+        <td>2024年国际医护英语三级考试（METS-3）</td>
         <td>国家级</td>
        </tr>
         </tbody>
