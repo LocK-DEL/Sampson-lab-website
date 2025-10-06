@@ -809,3 +809,61 @@ body {
   display: block;
   margin: 0 auto;         /* 图片在卡片中居中 */
 }
+/* 容器基本 */
+.awards-section { max-width: 1100px; margin: 30px auto; padding: 0 18px; color:#fff; }
+.awards-section h3 { text-align:center; margin-bottom:12px; }
+
+/* 年份条 */
+.timeline-scroll { display:flex; gap:12px; justify-content:center; padding:8px 6px; margin-bottom:14px; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.timeline-scroll::-webkit-scrollbar { display:none; }
+.year-btn {
+  background: rgba(255,255,255,0.08);
+  color: #00c4ff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  white-space:nowrap;
+}
+.year-btn.active, .year-btn:focus, .year-btn:hover { background:#00c4ff; color:#000; outline:none; }
+
+/* 横向走马灯 */
+.cards-carousel {
+  display:flex;
+  gap:28px;
+  overflow-x:auto;
+  padding:12px 8px 18px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
+}
+.cards-carousel.dragging { cursor: grabbing; }
+.cards-carousel::-webkit-scrollbar { height:10px; }
+.cards-carousel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius:6px; }
+
+/* 每组（一个年份）宽度 */
+.cards-group {
+  min-width: 320px;        /* 控制每组宽度（可按需调整） */
+  scroll-snap-align: center;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+/* 卡片 */
+.award-card {
+  background: rgba(255,255,255,0.06);
+  border-radius:12px;
+  padding:16px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+  transition: transform .22s ease;
+}
+.award-card:hover { transform: translateY(-6px); }
+.card-year { color:#00c4ff; font-weight:600; margin-bottom:6px; }
+.award-card h4 { margin:0 0 8px 0; font-size:15px; line-height:1.35; }
+
+/* 响应式 */
+@media (max-width:700px) {
+  .cards-group { min-width: 260px; }
+  .awards-section { padding:0 12px; }
+}
