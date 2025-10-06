@@ -500,28 +500,77 @@ body {
 .big-photo-container img:hover {
   transform: scale(1.03);
 }
+/* 总体容器 */
+.honor-showcase {
+  padding: 40px 20px;
+}
+
+/* 每个年度模块 */
+.honor-year {
+  margin-bottom: 60px;
+}
+
+.honor-year h2 {
+  text-align: center;
+  font-size: 24px;
+  color: #fff;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+/* 年度标题下划线（简约风格） */
+.honor-year h2::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.3);
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+/* 三列排版 + 自适应换行 */
 .honor-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 30px;
   justify-items: center;
   margin-top: 20px;
 }
 
+.honor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  justify-items: center;
+  margin-top: 20px;
+  justify-content: center; /* ✅ 水平居中整个网格 */
+}
+
+/* ✅ 额外：当只有一个卡片时，强制居中显示 */
+.honor-grid:has(.honor-card:only-child) {
+  display: flex;
+  justify-content: center;
+}
+
+/* 荣誉卡片样式 */
 .honor-card {
   text-align: center;
   background-color: rgba(255, 255, 255, 0.08);
   border-radius: 10px;
   padding: 15px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   max-width: 220px;
 }
 
+/* 悬浮动效 */
 .honor-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
 }
 
+/* 图片样式 */
 .honor-card img {
   width: 100%;
   height: auto;
@@ -529,6 +578,7 @@ body {
   object-fit: cover;
 }
 
+/* 名字样式 */
 .honor-name {
   font-size: 18px;
   font-weight: bold;
@@ -536,6 +586,7 @@ body {
   margin-top: 10px;
 }
 
+/* 荣誉称号样式 */
 .honor-title {
   font-size: 15px;
   color: #d0d0d0;
@@ -748,4 +799,13 @@ body {
   max-width: 200px;
   height: auto;
   margin: 10px;
+}
+.member-photo {
+  width: 160px;           /* 固定宽度 */
+  height: 200px;          /* 固定高度 */
+  object-fit: cover;      /* 自动裁剪填满区域，防止拉伸 */
+  object-position: center;/* 保证人物居中显示 */
+  border-radius: 4px;     /* 可选：圆角 */
+  display: block;
+  margin: 0 auto;         /* 图片在卡片中居中 */
 }
