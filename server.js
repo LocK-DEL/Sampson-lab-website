@@ -25,7 +25,7 @@ if (!JWT_SECRET) {
   process.exit(1);
 }
 
-// SQLite
+// SQLite schema
 const db = new Database("db.sqlite");
 db.exec(`
   PRAGMA journal_mode = WAL;
@@ -38,13 +38,12 @@ db.exec(`
   );
 `);
 
-// Bootstrap admin if not exists
+// Bootstrap admin
 if (ADMIN_EMAIL) {
   const exists = db.prepare("SELECT 1 FROM users WHERE email=?").get(ADMIN_EMAIL);
   if (!exists) {
     const hash = bcrypt.hashSync(ADMIN_PASSWORD, 12);
-    db.prepare("INSERT INTO users (email, password_hash, role) VALUES (?,?, 'admin')")
-      .run(ADMIN_EMAIL, hash);
+    db.prepare("INSERT INTO users (email, password_hash, role) VALUES (?,?, 'admin')").run(ADMIN_EMAIL, hash);
     console.log(`✅ Admin created: ${ADMIN_EMAIL} (please change password ASAP)`);
   }
 }
@@ -54,24 +53,25 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// CORS: set to your domain in production
+// CORS: set your domain in production
 app.use(cors({
-  origin: true,  // e.g. "https://www.sampsonlab.space"
+  origin: true,            // e.g. "https://www.sampsonlab.space"
   credentials: true
 }));
 
-// Static public
+// Static
 app.use(express.static(path.join(__dirname, "public")));
 
-// Rate limit for auth endpoints
+// Rate limit for login
 const authLimiter = rateLimit({ windowMs: 10 * 60 * 1000, max: 100 });
 
+// Helpers
 function setAuthCookie(res, payload) {
   const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "7d" });
   res.cookie("token", token, {
     httpOnly: true,
     sameSite: "lax",
-    secure: true, // dev can be false; production must be true with HTTPS
+    secure: true, // dev 可改为 false；生产必须 HTTPS + true
     maxAge: 7 * 24 * 3600 * 1000
   });
 }
@@ -162,10 +162,10 @@ app.delete("/api/admin/users/:id", authMiddleware, requireAdmin, (req, res) => {
   res.json({ ok: true });
 });
 
-// Protected static directory for internal files
+// Protected static directory
 app.use("/secure", authMiddleware, express.static(path.join(__dirname, "secure")));
 
-// Admin page route (front-end guards role, backend enforces via APIs)
+// Admin page route
 app.get("/admin", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "admin.html"));
 });
