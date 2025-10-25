@@ -58,6 +58,26 @@ app.use(cors({
   origin: true,            // e.g. "https://www.sampsonlab.space"
   credentials: true
 }));
+function tryGetUser(req) {
+  const token = req.cookies.token;
+  if (!token) return null;
+  try {
+    return jwt.verify(token, JWT_SECRET);
+  } catch {
+    return null;
+  }
+}
+
+// 默认首页访问逻辑：
+// 未登录 -> 跳转到 login.html
+// 已登录 -> 返回 index.html
+app.get(["/", "/index.html"], (req, res) => {
+  const user = tryGetUser(req);
+  if (!user) {
+    return res.redirect("/login.html");
+  }
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
 // Rate limit for login
 const authLimiter = rateLimit({ windowMs: 10 * 60 * 1000, max: 100 });
@@ -184,4 +204,42 @@ app.use(express.static(path.join(__dirname, "public")));
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`🔐 Auth server at http://localhost:${PORT}`);
 });
+// 判断是否已登录的小工具（基于 cookie 里的 JWT）
+function tryGetUser(req) {
+  const token = req.cookies.token;
+  if (!token) return null;
+  try { return jwt.verify(token, JWT_SECRET); }
+  catch { return null; }
+}
+
+// 未登录访问首页时先跳到登录页；已登录则返回主页
+app.get(["/", "/index.html"], (req, res) => {
+  const user = tryGetUser(req);
+  if (!user) {
+    return res.redirect("/login.html");
+  }
+  return res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+// 受保护目录（内部文件）
+app.use("/secure", authMiddleware, express.static(path.join(__dirname, "secure")));
+
+// 登录页、前端样式、首页（静态资源）
+app.use(express.static(path.join(__dirname, "public")));
+
+// 受保护目录（内部文件）
+app.use("/secure", authMiddleware, express.static(path.join(__dirname, "secure")));
+
+// 登录页、前端样式、首页（静态资源）
+app.use(express.static(path.join(__dirname, "public")));
+fetch("/api/login", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  credentials: "include",
+  body: JSON.stringify({ email, password })
+}).then(r => r.json())
+  .then(d => {
+    if (d.ok) window.location.href = "/index.html";
+    else alert(d.error || "登录失败");
+  });
 
