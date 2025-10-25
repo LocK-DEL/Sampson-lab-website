@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>管理员后台 - SAMPSON Lab</title>
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+<div class="auth-wrap">
+  <div class="auth-card">
+    <h1>管理员后台</h1>
+    <p id="me"></p>
+
+    <h2>创建成员</h2>
+    <form id="createForm">
+      <label>邮箱</label>
+      <input type="email" name="email" required />
+      <label>初始密码</label>
+      <input type="text" name="password" required />
+      <label>角色</label>
+      <select name="role">
+        <option value="member" selected>member</option>
+        <option value="admin">admin</option>
+      </select>
+      <button type="submit">创建用户</button>
+      <p id="createMsg" class="msg"></p>
+    </form>
+
+    <h2>用户列表</h2>
+    <div id="list"></div>
+
+    <div class="row" style="margin-top:12px">
+      <a class="btn" href="/dashboard.html">返回成员主页</a>
+      <button id="logout">退出登录</button>
+    </div>
+  </div>
+</div>
+
+<script>
+async function ensureAdmin(){
+  const r = await fetch("/api/me",{ credentials:"include" });
+  if (r.status !== 200) { location.href="/login.html"; return; }
+  const d = await r.json();
+  if (d.user.role !== "admin") { location.href="/dashboard.html"; return; }
+  document.getElementById("me").textContent = `当前管理员：${d.user.email}`;
+}
+async function loadUsers(){
+  const r = await fetch("/api/admin/users",{ credentials:"include" });
+  const d = await r.json();
+  const box = document.getElementById("list");
+  box.innerHTML = "";
+  (d.users || []).forEach(u=>{
+    const row = document.createElement("div");
+    row.className = "user-row";
+    row.innerHTML = `
+      <div class="user-cell">${u.email}</div>
+      <div class="user-cell">${u.role}</div>
+      <div class="user-cell">${new Date(u.created_at).toLocaleString()}</div>
+      <div class="user-cell">
+        <button data-act="reset" data-id="${u.id}">重置密码</button>
+        <button data-act="promote" data-id="${u.id}">设为admin</button>
+        <button data-act="demote" data-id="${u.id}">设为member</button>
+        <button data-act="del" data-id="${u.id}">删除</button>
+      </div>
+    `;
+    box.appendChild(row);
+  });
+}
+document.getElementById("createForm").onsubmit = async e=>{
+  e.preventDefault();
+  const body = Object.fromEntries(new FormData(e.target).entries());
+  const r = await fetch("/api/admin/users",{
+    method:"POST", headers:{ "Content-Type":"application/json" },
+    credentials:"include", body:JSON.stringify(body)
+  });
+  const d = await r.json();
+  document.getElementById("createMsg").textContent = d.ok ? "已创建" : (d.error || "失败");
+  if (d.ok) { e.target.reset(); loadUsers(); }
+};
+document.getElementById("list").onclick = async e=>{
+  const btn = e.target.closest("button"); if (!btn) return;
+  const id = btn.dataset.id, act = btn.dataset.act;
+  if (act === "del") {
+    if (!confirm("确定删除该用户吗？")) return;
+    await fetch(`/api/admin/users/${id}`, { method:"DELETE", credentials:"include" });
+    loadUsers(); return;
+  }
+  if (act === "reset") {
+    const pwd = prompt("输入新密码："); if (!pwd) return;
+    await fetch(`/api/admin/users/${id}`, {
+      method:"PATCH", headers:{ "Content-Type":"application/json" },
+      credentials:"include", body:JSON.stringify({ password: pwd })
+    });
+    alert("已重置"); return;
+  }
+  if (act === "promote" || act === "demote") {
+    const role = act === "promote" ? "admin" : "member";
+    await fetch(`/api/admin/users/${id}`, {
+      method:"PATCH", headers:{ "Content-Type":"application/json" },
+      credentials:"include", body:JSON.stringify({ role })
+    });
+    loadUsers(); return;
+  }
+};
+document.getElementById("logout").onclick = async ()=>{
+  await fetch("/api/logout",{ method:"POST", credentials:"include" });
+  location.href="/login.html";
+};
+ensureAdmin().then(loadUsers);
+</script>
+
+<style>
+.user-row{ display:grid; grid-template-columns: 1fr 100px 200px 360px; gap:8px; align-items:center; padding:8px 0; border-bottom:1px solid rgba(255,255,255,.08); }
+.user-cell button{ margin-right:6px; }
+@media (max-width:700px){ .user-row{ grid-template-columns: 1fr; } }
+</style>
+</body>
+</html>
