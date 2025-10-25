@@ -4,6 +4,7 @@ const session = require('express-session');
 const sqlite3 = require('sqlite3').verbose();
 const bodyParser = require('body-parser');
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
 
@@ -16,16 +17,62 @@ app.use(session({
   saveUninitialized: false,
 }));
 
-const db = new sqlite3.Database(':memory:');
+const databaseDirectory = path.join(__dirname, 'data');
+if (!fs.existsSync(databaseDirectory)) {
+  fs.mkdirSync(databaseDirectory, { recursive: true });
+}
+
+const dbPath = path.join(databaseDirectory, 'app.db');
+const db = new sqlite3.Database(dbPath);
 
 db.serialize(() => {
   db.run(`
-    CREATE TABLE users (
+    CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       username TEXT UNIQUE,
       password TEXT
     )
   `);
+});
+
+// 注册
+app.post('/register', async (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res
+      .status(400)
+      .json({ success: false, message: '用户名和密码不能为空' });
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    db.run(
+      `INSERT INTO users (username, password) VALUES (?, ?)`,
+      [username, hashedPassword],
+      function (err) {
+        if (err) {
+          if (err.code === 'SQLITE_CONSTRAINT') {
+            return res
+              .status(409)
+              .json({ success: false, message: '用户名已存在' });
+          }
+
+          return res
+            .status(500)
+            .json({ success: false, message: '注册失败，请稍后重试' });
+        }
+
+        return res
+          .status(201)
+          .json({ success: true, message: '注册成功，欢迎加入！' });
+      }
+    );
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ success: false, message: '注册失败，请稍后重试' });
+  }
 });
 
 // 登录
