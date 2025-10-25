@@ -94,6 +94,25 @@ body {
   outline: none;
 }
 
+.message {
+  margin-top: 12px;
+  font-size: 13px;
+  min-height: 18px;
+  text-align: center;
+}
+
+.message.success {
+  color: #2e7d32;
+}
+
+.message.error {
+  color: #c62828;
+}
+
+.message.info {
+  color: #555555;
+}
+
 .form-container {
   position: absolute;
   top: 0;

@@ -13,7 +13,7 @@
   <body>
     <div class="container" id="container">
       <div class="form-container sign-up">
-        <form>
+        <form id="register-form">
           <h1>创建账户</h1>
           <div class="social-icons">
             <a href="#" class="icon"><i class="fa-brands fa-google"></i></a>
@@ -26,14 +26,32 @@
             ></a>
           </div>
           <span>或使用邮箱注册</span>
-          <input type="text" placeholder="姓名" />
-          <input type="email" placeholder="邮箱" />
-          <input type="password" placeholder="密码" />
-          <button>注册</button>
+          <input
+            type="text"
+            name="username"
+            placeholder="用户名"
+            autocomplete="username"
+            required
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="邮箱（可选）"
+            autocomplete="email"
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="密码"
+            autocomplete="new-password"
+            required
+          />
+          <button type="submit">注册</button>
+          <p class="message" id="register-message"></p>
         </form>
       </div>
       <div class="form-container sign-in">
-        <form>
+        <form id="login-form">
           <h1>登录</h1>
           <div class="social-icons">
             <a href="#" class="icon"><i class="fa-brands fa-google"></i></a>
@@ -46,8 +64,12 @@
             ></a>
           </div>
           <span>或使用邮箱和密码登录</span>
-          <input type="email" placeholder="邮箱" />
-          <input type="password" placeholder="密码" />
+          <input type="email" placeholder="邮箱" autocomplete="username" />
+          <input
+            type="password"
+            placeholder="密码"
+            autocomplete="current-password"
+          />
           <a href="#">忘记密码？</a>
           <button>登录</button>
         </form>
