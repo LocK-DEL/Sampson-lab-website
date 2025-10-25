@@ -168,13 +168,20 @@ app.get("/admin", (req, res) => {
 });
 
 // Public static assets
-app.use(express.static(path.join(__dirname, "public")));
-// 中间件之后，任何鉴权/受保护路由之前
+// 中间件之后，任何鉴权/业务路由之前：
 app.get("/healthz", (req, res) => {
-  // 简单快速：200 + "OK"
+  console.log("✅ healthz hit");
   res.status(200).send("OK");
 });
-;
-app.listen(PORT, () => {
+app.head("/healthz", (req, res) => res.sendStatus(200)); // Render 偶尔用 HEAD
+
+// ...你的业务路由( /api/* 、/secure 等) ...
+
+// 静态资源放最后
+app.use(express.static(path.join(__dirname, "public")));
+
+// 监听显式绑定 0.0.0.0
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`🔐 Auth server at http://localhost:${PORT}`);
 });
+
