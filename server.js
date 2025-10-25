@@ -59,9 +59,6 @@ app.use(cors({
   credentials: true
 }));
 
-// Static
-app.use(express.static(path.join(__dirname, "public")));
-
 // Rate limit for login
 const authLimiter = rateLimit({ windowMs: 10 * 60 * 1000, max: 100 });
 
@@ -169,6 +166,9 @@ app.use("/secure", authMiddleware, express.static(path.join(__dirname, "secure")
 app.get("/admin", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "admin.html"));
 });
+
+// Public static assets
+app.use(express.static(path.join(__dirname, "public")));
 
 app.listen(PORT, () => {
   console.log(`🔐 Auth server at http://localhost:${PORT}`);
