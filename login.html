@@ -104,6 +104,25 @@
       color: #4b3f72;
     }
 
+    .message {
+      margin-top: 12px;
+      font-size: 14px;
+      min-height: 20px;
+      text-align: center;
+    }
+
+    .message.success {
+      color: #2e7d32;
+    }
+
+    .message.error {
+      color: #c62828;
+    }
+
+    .message.info {
+      color: #555555;
+    }
+
     /* 响应式 */
     @media (max-width: 400px) {
       .login-card {
@@ -122,10 +141,13 @@
       <label for="password">密码</label>
       <input type="password" id="password" name="password" required placeholder="请输入密码" />
       <button type="submit">登录</button>
+      <p class="message" id="login-message"></p>
     </form>
     <div class="redirect-link">
       还没有账号？<a href="/register.html">去注册</a>
     </div>
   </div>
+
+  <script src="/script.js"></script>
 </body>
 </html>
