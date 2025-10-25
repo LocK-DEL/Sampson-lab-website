@@ -169,7 +169,12 @@ app.get("/admin", (req, res) => {
 
 // Public static assets
 app.use(express.static(path.join(__dirname, "public")));
-app.get("/healthz", (req, res) => res.status(200).send("OK"));
+// 中间件之后，任何鉴权/受保护路由之前
+app.get("/healthz", (req, res) => {
+  // 简单快速：200 + "OK"
+  res.status(200).send("OK");
+});
+;
 app.listen(PORT, () => {
   console.log(`🔐 Auth server at http://localhost:${PORT}`);
 });
