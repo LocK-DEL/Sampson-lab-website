@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>成员主页 - SAMPSON Lab</title>
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+<div class="auth-wrap">
+  <div class="auth-card">
+    <h1>成员主页</h1>
+    <p id="who"></p>
+    <div class="row">
+      <a class="btn" href="/secure/">进入内部资料（/secure）</a>
+      <button id="logout">退出登录</button>
+    </div>
+  </div>
+</div>
+<script>
+(async function(){
+  const r = await fetch("/api/me",{ credentials:"include" });
+  if (r.status !== 200) { location.href="/login.html"; return; }
+  const d = await r.json();
+  document.getElementById("who").textContent = `当前用户：${d.user.email}（角色：${d.user.role}）`;
+})();
+document.getElementById("logout").onclick = async () => {
+  await fetch("/api/logout", { method:"POST", credentials:"include" });
+  location.href="/login.html";
+};
+</script>
+</body>
+</html>

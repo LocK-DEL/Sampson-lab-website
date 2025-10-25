@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>登录 - SAMPSON Lab</title>
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+<div class="auth-wrap">
+  <div class="auth-card">
+    <h1>登录 SAMPSON Lab</h1>
+    <form id="loginForm">
+      <label>邮箱</label>
+      <input type="email" name="email" required />
+      <label>密码</label>
+      <input type="password" name="password" minlength="6" required />
+      <button type="submit">登录</button>
+      <p class="tip"><a href="/admin.html">管理员入口</a></p>
+      <p id="loginMsg" class="msg"></p>
+    </form>
+  </div>
+</div>
+<script>
+document.getElementById("loginForm").onsubmit = async (e) => {
+  e.preventDefault();
+  const body = Object.fromEntries(new FormData(e.target).entries());
+  const r = await fetch("/api/login", {
+    method: "POST",
+    headers: { "Content-Type":"application/json" },
+    credentials:"include",
+    body: JSON.stringify(body)
+  });
+  const d = await r.json();
+  if (d.ok) location.href = "/dashboard.html";
+  else document.getElementById("loginMsg").textContent = d.error || "登录失败";
+};
+</script>
+</body>
+</html>

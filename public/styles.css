@@ -1,0 +1,15 @@
+:root { color-scheme: dark; }
+body { margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu; background:#0b1220; color:#eaeef7; }
+a { color:#58d0ff; text-decoration:none; }
+.auth-wrap { min-height:100vh; display:grid; place-items:center; padding:24px; }
+.auth-card { width:min(720px, 92vw); background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:14px; padding:24px; box-shadow:0 10px 30px rgba(0,0,0,.35);}
+h1,h2 { margin:0 0 12px; }
+label { display:block; margin:10px 0 6px; font-size:14px; color:#bcd2e8; }
+input, select { width:100%; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,0.2); background:#0f1a2f; color:#eaeef7; }
+button, .btn { display:inline-block; padding:10px 14px; border:0; border-radius:10px; background:#58d0ff; color:#0b1220; font-weight:600; cursor:pointer; }
+button:hover, .btn:hover { filter:brightness(1.1); }
+.hidden { display:none; }
+.tip { margin-top:10px; font-size:14px; color:#aac2d6; }
+.msg { margin-top:8px; min-height:18px; color:#ffb4b4; }
+.row { display:flex; gap:12px; margin-top:12px; flex-wrap:wrap; }
+pre { background:#0f1a2f; padding:12px; border-radius:10px; overflow:auto; }
