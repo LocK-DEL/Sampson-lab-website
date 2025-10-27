@@ -21,11 +21,11 @@ const ADMIN_EMAIL = (process.env.ADMIN_EMAIL || "").toLowerCase();
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "ChangeMe_123";
 
 if (!JWT_SECRET) {
-  console.error("❌ Missing JWT_SECRET in .env");
+  console.error("❌ 缺少 JWT_SECRET，请在 .env 中设置");
   process.exit(1);
 }
 
-// SQLite schema
+// --- 数据库初始化 ---
 const db = new Database("db.sqlite");
 db.exec(`
   PRAGMA journal_mode = WAL;
@@ -38,14 +38,13 @@ db.exec(`
   );
 `);
 
-// Bootstrap admin
-if (ADMIN_EMAIL) {
-  const exists = db.prepare("SELECT 1 FROM users WHERE email=?").get(ADMIN_EMAIL);
-  if (!exists) {
-    const hash = bcrypt.hashSync(ADMIN_PASSWORD, 12);
-    db.prepare("INSERT INTO users (email, password_hash, role) VALUES (?,?, 'admin')").run(ADMIN_EMAIL, hash);
-    console.log(`✅ Admin created: ${ADMIN_EMAIL} (please change password ASAP)`);
-  }
+// 如无管理员则自动创建
+const adminExists = db.prepare("SELECT 1 FROM users WHERE email=? LIMIT 1").get(ADMIN_EMAIL);
+if (!adminExists && ADMIN_EMAIL) {
+  const hash = bcrypt.hashSync(ADMIN_PASSWORD, 12);
+  db.prepare("INSERT INTO users (email, password_hash, role) VALUES (?,?, 'admin')")
+    .run(ADMIN_EMAIL, hash);
+  console.log(`✅ 已创建管理员账户：${ADMIN_EMAIL}（请尽快修改密码）`);
 }
 
 app.use(helmet());
@@ -53,72 +52,63 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// CORS: set your domain in production
+// CORS：开发期可 origin:true；上线后改成你的域名
 app.use(cors({
-  origin: true,            // e.g. "https://www.sampsonlab.space"
+  origin: true,              // 生产改为 "https://www.sampsonlab.space"
   credentials: true
 }));
-function tryGetUser(req) {
-  const token = req.cookies.token;
-  if (!token) return null;
-  try {
-    return jwt.verify(token, JWT_SECRET);
-  } catch {
-    return null;
-  }
-}
 
-// 默认首页访问逻辑：
-// 未登录 -> 跳转到 login.html
-// 已登录 -> 返回 index.html
-app.get(["/", "/index.html"], (req, res) => {
-  const user = tryGetUser(req);
-  if (!user) {
-    return res.redirect("/login.html");
-  }
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
+// 静态资源
+app.use(express.static(path.join(__dirname, "public")));
 
-// Rate limit for login
+// 将 /secure 目录保护起来（**把内部资料放这里**）
+app.use("/secure", authMiddleware, express.static(path.join(__dirname, "secure")));
+
+// 登录/鉴权限流：防暴力破解
 const authLimiter = rateLimit({ windowMs: 10 * 60 * 1000, max: 100 });
 
-// Helpers
+// —— 工具函数 —— //
 function setAuthCookie(res, payload) {
   const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "7d" });
   res.cookie("token", token, {
     httpOnly: true,
     sameSite: "lax",
-    secure: true, // dev 可改为 false；生产必须 HTTPS + true
+    secure: true, // 本地调试可临时改为 false；生产必须 true（HTTPS）
     maxAge: 7 * 24 * 3600 * 1000
   });
 }
 
 function authMiddleware(req, res, next) {
   const token = req.cookies.token;
-  if (!token) return res.status(401).json({ error: "unauthenticated" });
+  if (!token) return res.status(401).json({ error: "未登录" });
   try {
     req.user = jwt.verify(token, JWT_SECRET);
     next();
   } catch {
-    res.status(401).json({ error: "expired" });
+    return res.status(401).json({ error: "登录已过期，请重新登录" });
   }
 }
 
 function requireAdmin(req, res, next) {
   if (!req.user || req.user.role !== "admin") {
-    return res.status(403).json({ error: "forbidden" });
+    return res.status(403).json({ error: "权限不足（仅管理员）" });
   }
   next();
 }
 
-// Auth (no public register)
+// —— 账号与会话 —— //
+// ⚠️ 公开注册已移除；仅管理员可创建用户
+
 app.post("/api/login", authLimiter, async (req, res) => {
   const { email, password } = req.body || {};
-  if (!email || !password) return res.status(400).json({ error: "email and password required" });
+  if (!email || !password) return res.status(400).json({ error: "邮箱与密码必填" });
+
   const row = db.prepare("SELECT * FROM users WHERE email=?").get(email.toLowerCase());
-  if (!row) return res.status(401).json({ error: "invalid credentials" });
+  if (!row) return res.status(401).json({ error: "邮箱或密码错误" });
+
   const ok = await bcrypt.compare(password, row.password_hash);
-  if (!ok) return res.status(401).json({ error: "invalid credentials" });
+  if (!ok) return res.status(401).json({ error: "邮箱或密码错误" });
+
   setAuthCookie(res, { id: row.id, email: row.email, role: row.role });
   res.json({ ok: true });
 });
@@ -132,7 +122,7 @@ app.get("/api/me", authMiddleware, (req, res) => {
   res.json({ user: { id: req.user.id, email: req.user.email, role: req.user.role } });
 });
 
-// Admin user management
+// —— 管理员接口：用户管理 —— //
 app.get("/api/admin/users", authMiddleware, requireAdmin, (req, res) => {
   const list = db.prepare("SELECT id, email, role, created_at FROM users ORDER BY created_at DESC").all();
   res.json({ users: list });
@@ -140,106 +130,56 @@ app.get("/api/admin/users", authMiddleware, requireAdmin, (req, res) => {
 
 app.post("/api/admin/users", authMiddleware, requireAdmin, async (req, res) => {
   const { email, password, role } = req.body || {};
-  if (!email || !password) return res.status(400).json({ error: "email and password required" });
-  if (role && !["admin","member"].includes(role)) return res.status(400).json({ error: "invalid role" });
+  if (!email || !password) return res.status(400).json({ error: "邮箱与密码必填" });
+  if (role && !["admin", "member"].includes(role)) {
+    return res.status(400).json({ error: "角色必须是 admin 或 member" });
+  }
   try {
     const hash = await bcrypt.hash(password, 12);
     const info = db.prepare("INSERT INTO users (email, password_hash, role) VALUES (?,?,?)")
       .run(email.toLowerCase(), hash, role || "member");
     res.json({ ok: true, id: info.lastInsertRowid });
   } catch (e) {
-    if (String(e).includes("UNIQUE")) return res.status(409).json({ error: "email exists" });
-    res.status(500).json({ error: "failed" });
+    if (String(e).includes("UNIQUE")) return res.status(409).json({ error: "该邮箱已存在" });
+    res.status(500).json({ error: "创建失败" });
   }
 });
 
 app.patch("/api/admin/users/:id", authMiddleware, requireAdmin, async (req, res) => {
   const { id } = req.params;
   const { password, role } = req.body || {};
-  if (!password && !role) return res.status(400).json({ error: "no fields" });
-  if (role && !["admin","member"].includes(role)) return res.status(400).json({ error: "invalid role" });
+  if (!password && !role) return res.status(400).json({ error: "请提供要修改的字段" });
+
   try {
     if (password) {
       const hash = await bcrypt.hash(password, 12);
       db.prepare("UPDATE users SET password_hash=? WHERE id=?").run(hash, id);
     }
     if (role) {
+      if (!["admin", "member"].includes(role)) {
+        return res.status(400).json({ error: "角色必须是 admin 或 member" });
+      }
       db.prepare("UPDATE users SET role=? WHERE id=?").run(role, id);
     }
     res.json({ ok: true });
   } catch {
-    res.status(500).json({ error: "failed" });
+    res.status(500).json({ error: "更新失败" });
   }
 });
 
 app.delete("/api/admin/users/:id", authMiddleware, requireAdmin, (req, res) => {
   const { id } = req.params;
-  if (req.user.id === Number(id)) return res.status(400).json({ error: "cannot delete self" });
+  if (req.user.id === Number(id)) return res.status(400).json({ error: "不能删除自己" });
   db.prepare("DELETE FROM users WHERE id=?").run(id);
   res.json({ ok: true });
 });
 
-// Protected static directory
-app.use("/secure", authMiddleware, express.static(path.join(__dirname, "secure")));
-
-// Admin page route
+// —— 受保护页面的“兜底”路由（可选）：阻止直接访问 admin.html 时未登录 —— //
+// 前端 admin.html 会自行检测 /api/me 且必须 admin，否则跳回 login。
 app.get("/admin", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "admin.html"));
 });
 
-// Public static assets
-// 中间件之后，任何鉴权/业务路由之前：
-app.get("/healthz", (req, res) => {
-  console.log("✅ healthz hit");
-  res.status(200).send("OK");
+app.listen(PORT, () => {
+  console.log(`🔐 Auth server running at http://localhost:${PORT}`);
 });
-app.head("/healthz", (req, res) => res.sendStatus(200)); // Render 偶尔用 HEAD
-
-// ...你的业务路由( /api/* 、/secure 等) ...
-
-// 静态资源放最后
-app.use(express.static(path.join(__dirname, "public")));
-
-// 监听显式绑定 0.0.0.0
-app.listen(PORT, "0.0.0.0", () => {
-  console.log(`🔐 Auth server at http://localhost:${PORT}`);
-});
-// 判断是否已登录的小工具（基于 cookie 里的 JWT）
-function tryGetUser(req) {
-  const token = req.cookies.token;
-  if (!token) return null;
-  try { return jwt.verify(token, JWT_SECRET); }
-  catch { return null; }
-}
-
-// 未登录访问首页时先跳到登录页；已登录则返回主页
-app.get(["/", "/index.html"], (req, res) => {
-  const user = tryGetUser(req);
-  if (!user) {
-    return res.redirect("/login.html");
-  }
-  return res.sendFile(path.join(__dirname, "public", "index.html"));
-});
-
-// 受保护目录（内部文件）
-app.use("/secure", authMiddleware, express.static(path.join(__dirname, "secure")));
-
-// 登录页、前端样式、首页（静态资源）
-app.use(express.static(path.join(__dirname, "public")));
-
-// 受保护目录（内部文件）
-app.use("/secure", authMiddleware, express.static(path.join(__dirname, "secure")));
-
-// 登录页、前端样式、首页（静态资源）
-app.use(express.static(path.join(__dirname, "public")));
-fetch("/api/login", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  credentials: "include",
-  body: JSON.stringify({ email, password })
-}).then(r => r.json())
-  .then(d => {
-    if (d.ok) window.location.href = "/index.html";
-    else alert(d.error || "登录失败");
-  });
-
