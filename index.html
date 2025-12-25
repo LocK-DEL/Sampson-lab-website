@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+  <script>
+</script>  
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMPSON科研实验组</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+      nav ul li.dropdown {
+        position: relative;
+      }
+      nav ul li.dropdown ul.dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f0f8f5;
+        min-width: 160px;
+        z-index: 1000;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        border-radius: 6px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      }
+      nav ul li.dropdown:hover ul.dropdown-content {
+        display: block;
+      }
+      nav ul li.dropdown ul.dropdown-content li a {
+        display: block;
+        padding: 10px 14px;
+        text-decoration: none;
+        color: #1a3e3e;
+      }
+      nav ul li.dropdown ul.dropdown-content li a:hover {
+        background-color: #cceee2;
+      }
+      #backToTop {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      z-index: 500; 
+      display: none;
+      padding: 10px 15px;
+      background-color: #1a3e3e;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    #backToTop:hover {
+      background-color: #145c5c;
+    }
+    .member-card img.member-photo {
+    width: 160px !important;
+    height: 200px !important;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    margin: 0 auto;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+   <video autoplay muted loop id="background-video">
+    <source src="video/background.mp4" type="video/mp4">
+    您的浏览器不支持 video 标签。
+  </video>
+  <!-- 遮罩层 -->
+  <div id="background-overlay"></div>
+  <!-- 备用图片背景 -->
+  <div id="fallback-background"></div>
+
+     <!-- 页面主体内容 -->
+   <a id="top"></a>
+<header>
+ <div class="header-top">
+  <div class="logo-title-wrapper">
+    <div class="logo-container">
+      <img src="images/logo.png" alt="Logo" id="logo">
+    </div>
+    <div class="title-container">
+      <h1 class="lab-title">SAMPSON科研实验组</h1>
+    </div>
+  </div>
+</div>
+<nav>
+  <ul>
+    <li><a href="#home">首页</a></li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle">实验组简介</a>
+      <ul class="dropdown-content">
+        <li><a href="#advisor">导师介绍</a></li>
+        <li><a href="#members">成员介绍</a></li>
+        <li><a href="#style-showcase">风采展示</a></li>
+        <li><a href="#honor-showcase">年度荣誉</a></li>
+        <li><a href="#recognition_awards">表彰奖励</a></li>
+      </ul>
+    </li>
+    
+    <li class="dropdown">
+  <a href="#research">研究方向</a>
+  <ul class="dropdown-content">
+    <li><a href="#microRNA">microRNA</a></li>
+    <li><a href="#TCM">中药学</a></li>
+    <li><a href="#literature-study">科研文献学习</a></li>
+  </ul>
+</li>
+
+    <li class="dropdown">
+      <a href="#">成果</a>
+      <ul class="dropdown-content">
+        <li><a href="#publications">科研与竞赛</a></li>
+        <li><a href="#postgraduate">考研与考博</a></li>
+        <li><a href="#publications-list">学术论文</a></li>
+        <li><a href="#employment">就业单位</a></li>
+      </ul>
+    </li>
+    <li><a href="#support">技术支持</a></li>
+    <li><a href="#photos">实验室照片</a></li>
+    <li><a href="#admission">招生信息</a></li>
+    <li><a href="exam.html">在线考试</a></li>
+  </ul>
+</nav>
+</header>
+<main class="container" role="main">
+        <section id="home" class="section">
+            <h1>SAMPSON科研实验组</h1>
+            <p>简介：科研实验组成立于2017年9月，是以个人名义发起建立的公益的非营利性学术团队，主要研究方向为microRNA、生物信息学、中药学、心理学、哲学、大数据分析、统计学等方向，自成立以来在实验组学习的本科、硕士、博士等近200余人。</p>
+          </section>
+
+     <section id="advisor" class="section">
+        <h2>导师介绍</h2>
+
+       <!-- 主要导师 -->
+       <h3 style="color:#1a3e3e; margin-top:30px;">主要导师</h3>
+       <div class="faculty-member">
+       <h4>刘春阳</h4>
+       <p>中国生物化学与分子生物学会永久会员、实验中心副主任，研究方向为 <strong>MicroRNA在缺氧缺血性脑病（HIE）中的调控机制</strong>，聚焦离子通道、信号通路与神经系统疾病的分子基础。</p>
+       </div>
+
+       <!-- 合作导师 -->
+       <h3 style="color:#1a3e3e; margin-top:30px;">合作导师</h3>
+       <div class="faculty-member">
+       <h4>谢娟平 教授</h4>
+       <p>院长、硕士研究生导师、博士，研究方向为 <strong>中药提取与疾病动物模型研究</strong>，在药食同源方向有深入探索，主持多项国家级与省部级中药相关项目。</p>
+       </div>
+
+       <div class="faculty-member">
+       <h4>徐辉 教授</h4>
+       <p>院长、博士研究生导师、博士后，参与国家自然科学基金面上项目两项。</p>
+       </div>
+       
+       <div class="faculty-member">
+       <h4>张琳 医生</h4>
+       <p>哈尔滨医科大学硕士，哈尔滨医科大学附属第二医院眼科医生。</p>
+       </div>
+     </section>
+
+      <section id="members" class="section">
+      <h2>成员介绍</h2>
+       <div class="member-grid">
+
+      <div class="member-card">
+       <img src="images/member1.jpg" class="member-photo" alt="实验组总组长刘春阳" loading="lazy">
+       <p class="member-name">刘春阳</p>
+       <p class="member-role">总组长</p>
+      </div>
+
+      <div class="member-card">
+       <img src="images/member2.jpg" class="member-photo" alt="实验组总秘书长于子芮" loading="lazy">
+       <p class="member-name">于子芮</p>
+       <p class="member-role">总秘书长</p>
+      </div>
+
+      <div class="member-card">
+       <img src="images/member3.jpg" class="member-photo" alt="实验组总副组长张琳" loading="lazy">
+       <p class="member-name">张琳</p>
+       <p class="member-role">总副组长</p>
+      </div>
+      
+      <div class="member-card">
+       <img src="images/member9.jpg" class="member-photo" alt="实验组Hisham AlWard" loading="lazy">
+       <p class="member-name">Hisham AlWard</p>
+       <p class="member-role"></p>
+      </div>
+
+      <div class="member-card">
+       <img src="images/member10.jpg" class="member-photo" alt="实验组Francine Ngaffo Mekontso" loading="lazy">
+       <p class="member-name">Francine Ngaffo Mekontso</p>
+       <p class="member-role"></p>
+      </div>
+
+      <div class="member-card">
+       <img src="images/member11.jpg" class="member-photo" alt="实验组总副秘书长纪洪兵" loading="lazy">
+       <p class="member-name">纪洪兵</p>
+       <p class="member-role"></p>
+      </div>
+
+      <div class="member-card">
+       <img src="images/member23.jpg" class="member-photo" alt="实验组总副秘书长韩语纯" loading="lazy">
+       <p class="member-name">韩语纯</p>
+       <p class="member-role">总副秘书长</p>
+      </div>
+
+      <div class="member-card">
+       <img src="images/member4.jpg" class="member-photo" alt="实验组总副组长丁乐乐" loading="lazy">
+       <p class="member-name">丁乐乐</p>
+       <p class="member-role">总副组长</p>
+      </div>
+
+       <div class="member-card">
+       <img src="images/member19.jpg" class="member-photo" alt="实验组总副秘书长杨艳淇" loading="lazy">
+       <p class="member-name">杨艳淇</p>
+       <p class="member-role">总副组长兼秘书长</p>
+      </div>
+
+      <div class="member-card">
+       <img src="images/member6.jpg" class="member-photo" alt="实验组总副组长刘文龙" loading="lazy">
+       <p class="member-name">刘文龙</p>
+       <p class="member-role">总副组长</p>
+      </div>
+      
+      <div class="member-card">
+       <img src="images/member14.jpg" class="member-photo" alt="实验组李玥翮" loading="lazy">
+       <p class="member-name">李玥翮</p>
+       <p class="member-role">总副秘书长</p>
+       <p class="member-role">竞赛项目部部长</p>
+      </div>
+
+      <div class="member-card">
+       <img src="images/member16.jpg" class="member-photo" alt="实验组金苑宁" loading="lazy">
+       <p class="member-name">金苑宁</p>
+       <p class="member-role">总副秘书长</p>
+      </div>
+
+      <div class="member-card">
+       <img src="images/member8.jpg" class="member-photo" alt="实验组秘书长白若暄" loading="lazy">
+       <p class="member-name">白若暄</p>
+       <p class="member-role">实验组总副秘书长兼组长</p>
+      </div>
+
+      <div class="member-card">
+       <img src="images/member15.jpg" class="member-photo" alt="实验组李璐" loading="lazy">
+       <p class="member-name">李璐</p>
+       <p class="member-role">竞赛项目部副部长</p>
+       <p class="member-role">面试部部长</p>
+       <p class="member-role">副组长</p>
+      </div>
+      
+      <div class="member-card">
+       <img src="images/member17.jpg" class="member-photo" alt="实验组李妙静" loading="lazy">
+       <p class="member-name">李妙静</p>
+       <p class="member-role">实验组秘书长</p>
+      </div>
+
+      <div class="member-card">
+       <img src="images/member13.jpg" class="member-photo" alt="实验组李文静" loading="lazy">
+       <p class="member-name">李文静</p>
+       <p class="member-role">学术部部长</p>
+      </div>
+
+      <div class="member-card">
+       <img src="images/member27.jpg" class="member-photo" alt="实验组总副组长丁乐乐" loading="lazy">
+       <p class="member-name">蔡修燕</p>
+       <p class="member-role"></p>
+      </div>
+
+      <div class="member-card">
+       <img src="images/member20.jpg" class="member-photo" alt="实验组李雨科" loading="lazy">
+       <p class="member-name">李雨科</p>
+       <p class="member-role"></p>
+      </div>
+
+      <div class="member-card">
+       <img src="images/member25.jpg" class="member-photo" alt="实验组赵粤霞" loading="lazy">
+       <p class="member-name">赵粤霞</p>
+       <p class="member-role"></p>
+      </div>
+      
+      <div class="member-card">
+       <img src="images/member22.jpg" class="member-photo" alt="实验组吝佳敏" loading="lazy">
+       <p class="member-name">吝佳敏</p>
+       <p class="member-role"></p>
+      </div>
+
+      <div class="member-card">
+       <img src="images/member18.jpg" class="member-photo" alt="实验组计茜茜" loading="lazy">
+       <p class="member-name">计茜茜</p>
+       <p class="member-role"></p>
+      </div>
+      
+      <div class="member-card">
+       <img src="images/member21.jpg" class="member-photo" alt="实验组蒋婷婷" loading="lazy">
+       <p class="member-name">蒋婷婷</p>
+       <p class="member-role"></p>
+      </div>
+      
+      <div class="member-card">
+       <img src="images/member24.jpg" class="member-photo"alt="实验组李晓宇" loading="lazy">
+       <p class="member-name">李晓宇</p>
+       <p class="member-role">副秘书长</p>
+      </div>
+      
+      <div class="member-card">
+       <img src="images/member26.jpg" class="member-photo"alt="实验组李易晓" loading="lazy">
+       <p class="member-name">李易晓</p>
+       <p class="member-role"></p>
+      </div>
+
+      </div>
+      </section>
+      <section id="style-showcase" class="section">
+       <h2>实验组成员风采展示</h2>
+       <div class="masonry-gallery">
+        <img src="images/style1.jpg" class="member-photo" alt="风采图1" loading="lazy">
+        <img src="images/style2.jpg" class="member-photo" alt="风采图2" loading="lazy">
+        <img src="images/style3.jpg" class="member-photo" alt="风采图3" loading="lazy">
+        <img src="images/style4.jpg" class="member-photo" alt="风采图4" loading="lazy">
+        <img src="images/style5.jpg" class="member-photo" alt="风采图5" loading="lazy">
+        <img src="images/style6.jpg" class="member-photo" alt="风采图6" loading="lazy">
+        <img src="images/style7.jpg" class="member-photo" alt="风采图7" loading="lazy">
+        <img src="images/style8.jpg" class="member-photo large" alt="风采图8" loading="lazy">
+        <img src="images/style9.jpg" class="member-photo large" alt="风采图9" loading="lazy">
+        <img src="images/style10.jpg" class="member-photo" alt="风采图10" loading="lazy">
+        <img src="images/style11.jpg" class="member-photo" alt="风采图11" loading="lazy">
+        <img src="images/style12.jpg" class="member-photo" alt="风采图12" loading="lazy">
+        <img src="images/style13.jpg" class="member-photo" alt="风采图13" loading="lazy">
+        <img src="images/style15.jpg" class="member-photo" alt="风采图15" loading="lazy">
+      </div>
+      <div class="big-photo-container">
+      </div>
+      </section>
+     <section class="section honor-showcase" id="honor-showcase">
+
+ <!-- 2017年度 -->
+    <div class="honor-year">
+    <h2>2017年度荣誉展示</h2>
+    <div class="honor-grid">
+      <div class="honor-card">
+        <img src="images/member2.jpg" alt="于子芮" loading="lazy">
+        <h3 class="honor-name">于子芮</h3>
+        <p class="honor-title"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2018年度 -->
+  <div class="honor-year">
+    <h2>2018年度荣誉展示</h2>
+    <div class="honor-grid">
+      <div class="honor-card">
+        <img src="images/member3.jpg" alt="张琳" loading="lazy">
+        <h3 class="honor-name">张琳</h3>
+        <p class="honor-title"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2019年度 -->
+  <div class="honor-year">
+    <h2>2019年度荣誉展示</h2>
+    <div class="honor-grid">
+      <div class="honor-card">
+        <img src="images/honor10.jpg" alt="哈什姆" loading="lazy">
+        <h3 class="honor-name">哈什姆</h3>
+        <p class="honor-title"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2025年度 -->
+  <div class="honor-year">
+    <h2>2025年度荣誉展示</h2>
+    <div class="honor-grid">
+      <div class="honor-card">
+        <img src="images/honor1.jpg" alt="刘文龙" loading="lazy">
+        <h3 class="honor-name">刘文龙</h3>
+        <p class="honor-title">科技创新先进个人</p>
+      </div>
+
+      <div class="honor-card">
+        <img src="images/honor2.jpg" alt="金苑宁" loading="lazy">
+        <h3 class="honor-name">金苑宁</h3>
+        <p class="honor-title">科研实验安全稳定先进个人</p>
+      </div>
+
+      <div class="honor-card">
+        <img src="images/honor5.jpg" alt="李璐" loading="lazy">
+        <h3 class="honor-name">李璐</h3>
+        <p class="honor-title">突出贡献奖</p>
+      </div>
+
+      <div class="honor-card">
+        <img src="images/honor7.jpg" alt="李玥翮" loading="lazy">
+        <h3 class="honor-name">李玥翮</h3>
+        <p class="honor-title">最佳创新奖</p>
+      </div>
+
+      <div class="honor-card">
+        <img src="images/honor8.jpg" alt="赵粤霞" loading="lazy">
+        <h3 class="honor-name">赵粤霞</h3>
+        <p class="honor-title">实验组先进个人</p>
+      </div>
+
+      <div class="honor-card">
+        <img src="images/honor9.jpg" alt="杨艳淇" loading="lazy">
+        <h3 class="honor-name">杨艳淇</h3>
+        <p class="honor-title">实验组安全稳定先进个人</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+ <section id="recognition_awards" class="section">
+   <h2>表彰奖励</h2>
+      <table class="award-table">
+      <thead>
+       <tr>
+        <th>姓名</th>
+        <th>表彰情况</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>丁乐乐</td>
+        <td>2025届优秀毕业生</td>
+      </tr>
+      <tr>
+        <td>蔡修燕</td>
+        <td>2025届优秀毕业生</td>
+      </tr>
+      <!-- 如需添加更多行，继续往下复制 <tr>...</tr> 结构 -->
+    </tbody>
+  </table>
+ </section>
+      <section id="research" class="section">
+        <h2>研究方向</h2>
+        <ul style="list-style-type: disc; padding-left: 20px;">
+           <li>microRNA</li>
+           <li>生物信息学</li>
+           <li>中药相关研究</li>
+           <li>疾病动物模型相关研究</li>
+           <li>科研文献学习</li>
+        </ul>
+      </section>
+      <section id="microRNA" style="padding: 50px 0; text-align: center;">
+        <h2>诺贝尔奖获得者</h2>
+        <div class="carousel">
+          <input type="radio" name="carousel" id="carousel-1" checked>
+          <input type="radio" name="carousel" id="carousel-2">
+          <input type="radio" name="carousel" id="carousel-3">
+          <input type="radio" name="carousel" id="carousel-4">
+          <div class="carousel-images">
+            <div class="carousel-image img1">
+              <img src="images/microRNA1.jpg" alt="诺贝尔奖获得者1" loading="lazy">
+            </div>
+            <div class="carousel-image img2">
+              <img src="images/microRNA2.jpg" alt="诺贝尔奖获得者2" loading="lazy">
+            </div>
+            <div class="carousel-image img3">
+              <img src="images/microRNA3.jpg" alt="诺贝尔奖获得者3" loading="lazy">
+            </div>
+            <div class="carousel-image img4">
+              <img src="images/microRNA4.jpg" alt="诺贝尔奖获得者4" loading="lazy">
+            </div>
+          </div>
+          <div class="carousel-controls">
+            <label for="carousel-1"></label>
+            <label for="carousel-2"></label>
+            <label for="carousel-3"></label>
+            <label for="carousel-4"></label>
+          </div>
+        </div>
+      </section>
+      <style>
+      .carousel {
+        position: relative;
+        width: 80%;
+        max-width: 600px;
+        margin: 30px auto 0;
+        height: 350px;
+        overflow: hidden;
+      }
+      .carousel input[type="radio"] {
+        display: none;
+      }
+      .carousel-images {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+      .carousel-image {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        opacity: 0;
+        transition: opacity 0.6s;
+        text-align: center;
+      }
+      .carousel-image img {
+        max-width: 100%;
+        max-height: 340px;
+        margin: 0 auto;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      }
+      #carousel-1:checked ~ .carousel-images .img1,
+      #carousel-2:checked ~ .carousel-images .img2,
+      #carousel-3:checked ~ .carousel-images .img3,
+      #carousel-4:checked ~ .carousel-images .img4 {
+        opacity: 1;
+        z-index: 2;
+      }
+      .carousel-controls {
+        position: absolute;
+        bottom: 18px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 12px;
+      }
+      .carousel-controls label {
+        display: block;
+        width: 16px;
+        height: 16px;
+        background: #cceee2;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 2px solid #1a3e3e;
+        transition: background 0.3s;
+      }
+      #carousel-1:checked ~ .carousel-controls label[for="carousel-1"],
+      #carousel-2:checked ~ .carousel-controls label[for="carousel-2"],
+      #carousel-3:checked ~ .carousel-controls label[for="carousel-3"],
+      #carousel-4:checked ~ .carousel-controls label[for="carousel-4"] {
+        background: #1a3e3e;
+      }
+      </style>
+        <p>重点探索miRNA在缺氧缺血性脑病（HIE）中的调控机制，涉及信号通路、离子通道与蛋白质表达的调节作用。</p>
+      </section>
+      <section id="bioinfo" class="section">
+        <p>本研究方向聚焦于数据挖掘、基因组分析、miRNA作用机制等...</p>
+        <div class="bioinfo-gallery">
+          <img src="images/bio1.jpg" alt="生物信息图1" loading="lazy">
+          <img src="images/bio2.jpg" alt="生物信息图2" loading="lazy">
+          <img src="images/bio3.jpg" alt="生物信息图3" loading="lazy">
+          <img src="images/bio4.jpg" alt="生物信息图4" loading="lazy">
+        </div>
+      </section>
+      <section id="literature-study" style="padding: 50px 0; text-align: center;">
+       <div class="research-card">
+        <img src="images/literature1.jpg" alt="科研文献学习1" class="literature-img" loading="lazy">
+        <img src="images/literature2.jpg" alt="科研文献学习2" class="literature-img" loading="lazy">
+        <img src="images/literature3.jpg" alt="科研文献学习3" class="literature-img" loading="lazy">
+        <img src="images/literature4.jpg" alt="科研文献学习4" class="literature-img" loading="lazy">
+        <img src="images/literature5.jpg" alt="科研文献学习5" class="literature-img" loading="lazy">
+        <img src="images/literature6.jpg" alt="科研文献学习6" class="literature-img" loading="lazy">
+        <img src="images/literature7.jpg" alt="科研文献学习7" class="literature-img" loading="lazy">
+        <h3>科研文献学习</h3>
+       <p>通过定期文献阅读、数据库检索、研究热点跟踪，提升科研素养，拓展实验思维，推动课题设计与论文撰写。</p>
+       </div>
+     </section>
+        <section id="publications" class="section">
+            <h2>成果展示</h2>
+             <p>包括科研项目、论文发表、专利、获奖项目等成果</p>
+             <div class="gallery">
+             <img src="images/imagexuhui.jpg" alt="kypic1" loading="lazy">
+             <img src="images/imagelcy1.jpg" alt="kypic2" loading="lazy">
+             <img src="images/imagelcy2.jpg" alt="kypic3" loading="lazy">
+             <img src="images/imagelcy3.jpg" alt="kypic4" loading="lazy">
+             <img src="images/imageyzr1.jpg" alt="zl1" loading="lazy">
+            </div>
+            <section class="awards-section">
+            <h3>竞赛获奖及项目情况</h3>
+
+            <!-- 时间轴 / 年份按钮 -->
+            <div class="timeline-scroll" role="tablist" aria-label="年份导航">
+              <button class="year-btn active" data-target="2018">2018</button>
+              <button class="year-btn" data-target="2019">2019</button>
+              <button class="year-btn" data-target="2020">2020</button>
+              <button class="year-btn" data-target="2024">2024</button>
+              <button class="year-btn" data-target="2025">2025</button>
+            </div>
+
+            <!-- 横向可滚动卡片走马灯：每个 .cards-group 为一组（对应一个年份） -->
+            <div class="cards-carousel" tabindex="0" aria-roledescription="carousel">
+              <div class="cards-group" id="y2018" data-year="2018">
+                <div class="award-card">
+                  <div class="card-year">2018</div>
+                  <h4>佳木斯大学学术型人才和应用型人才的培养计划和学校积极向前发展建设的建议</h4>
+                  <p><strong>姓名：</strong>刘春阳</p>
+                  <p><strong>项目 / 比赛：</strong>校长创新创业基金</p>
+                  <p><strong>等级：</strong>校级 </p>
+                </div>
+                
+                <div class="award-card">
+                  <div class="card-year">2018</div>
+                  <h4>miRNA-210, miRNA-373与新⽣⼉缺氧缺⾎性脑病相关性研究</h4>
+                  <p><strong>姓名：</strong>于子芮</p>
+                  <p><strong>项目 / 比赛：</strong> 大学生创新训练计划</p>
+                  <p><strong>等级：</strong> 国家级</p>
+                </div>
+              </div>
+
+              <div class="cards-group" id="y2019" data-year="2019">
+                <div class="award-card">
+                  <div class="card-year">2019</div>
+                  <h4>miRNA-377 调控 CBS/H₂S 在 HIE 中的作用机制研究</h4>
+                  <p><strong>姓名：</strong>张琳</p>
+                  <p><strong>项目：</strong>大学生创新训练计划</p>
+                  <p><strong>等级：</strong>省级</p>
+                </div>
+              </div>
+
+              <div class="cards-group" id="y2020" data-year="2020">
+                <div class="award-card">
+                  <div class="card-year">2020</div>
+                  <h4>胎鼠缺氧缺血性脑损伤 microRNA-210 与 SCN1B 相关性研究</h4>
+                  <p><strong>姓名：</strong>韩语纯</p>
+                  <p><strong>项目：</strong>大学生创新训练计划</p>
+                  <p><strong>等级：</strong>校级</p>
+                </div>
+              </div>
+
+              <div class="cards-group" id="y2023" data-year="2023">
+                <div class="award-card">
+                  <div class="card-year">2023</div>
+                  <h4>2023年实用新型专利</h4>
+                  <p><strong>姓名：</strong>于子芮</p>
+                  <p><strong>项目：</strong>实用新型专利</p>
+                  <p><strong>等级：</strong>国家级</p>
+                </div>
+              </div>
+
+              <div class="cards-group" id="y2024" data-year="2024">
+                <div class="award-card">
+                  <div class="card-year">2024</div>
+                  <h4>亚洲人参，葛富乡村</h4>
+                  <p><strong>姓名：</strong>李妙静</p>
+                  <p><strong>比赛：</strong>陕西省大学生天然药物微视频大赛暨科技创新成果大赛</p>
+                  <p><strong>等级：</strong>省级优秀奖</p>
+                </div>
+                
+                <div class="award-card">
+                  <div class="card-year">2024</div>
+                  <h4>2024年国际医护英语三级考试（METS-3）</h4>
+                  <p><strong>姓名：</strong>王雨欣</p>
+                  <p><strong>比赛：</strong>国际医护英语三级考试（METS-3）</p>
+                  <p><strong>等级：</strong>国家级</p>
+                </div>
+              </div>
+
+              <div class="cards-group" id="y2025" data-year="2025">
+                <div class="award-card">
+                  <div class="card-year">2025</div>
+                  <h4>2025实用新型专利</h4>
+                  <p><strong>姓名：</strong>丁乐乐</p>
+                  <p><strong>项目：</strong>实用新型专利</p>
+                  <p><strong>等级：</strong>国家级</p>
+                </div>
+                
+                <div class="award-card">
+                  <div class="card-year">2025</div>
+                  <h4>粉碎过滤承重一体机：实验室的全能助手</h4>
+                  <p><strong>姓名：</strong>李玥翮</p>
+                  <p><strong>比赛：</strong>全国青年科普创新实验大赛</p>
+                  <p><strong>等级：</strong>省级三等奖</p>
+                </div>
+
+                <div class="award-card">
+                  <div class="card-year">2025</div>
+                  <h4>艾"芯秦脉国内首款植物抑菌智能缓释穿戴装置革新者</h4>
+                  <p><strong>姓名：</strong>刘文龙</p>
+                  <p><strong>比赛：</strong>全国青年科普创新实验大赛</p>
+                  <p><strong>等级：</strong>省级三等奖</p>
+                </div>
+
+                <div class="award-card">
+                  <div class="card-year">2025</div>
+                  <h4>秦岭艾草总黄酮提取的工艺优化与抗菌产品开发研究</h4>
+                  <p><strong>姓名：</strong>刘文龙</p>
+                  <p><strong>项目：</strong>大学生创新训练</p>
+                  <p><strong>等级：</strong>省级立项</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        <h3>奖学金获奖情况</h3>
+        <div class="table-responsive">
+          <table class="award-table">
+            <thead>
+              <tr>
+                <th>姓名</th>
+                <th>获奖项目</th>
+                <th>奖项等级</th>
+                <th>年份</th>
+                <th>学历</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>刘春阳 </td>
+                <td>国家奖学金</td>
+                <td>国家级</td>
+                <td>2018</td>
+                <td>硕士研究生</td>
+              </tr>
+              <tr>
+                <td>计娜 </td>
+                <td>国家奖学金</td>
+                <td>国家级</td>
+                <td>2019</td>
+                <td>本科</td>
+              </tr>
+              <tr>
+                <td>赵倩</td>
+                <td>国家励志奖学金</td>
+                <td>国家级</td>
+                <td>2021</td>
+                <td>本科</td>
+              </tr>
+              <tr>
+                <td>丁乐乐</td>
+                <td>国家励志奖学金</td>
+                <td>国家级</td>
+                <td>2025</td>
+                <td>本科</td>
+              </tr>
+              <tr>
+                <td>杨艳淇</td>
+                <td>安康学院奖学金</td>
+                <td>校级</td>
+                <td>2025</td>
+                <td>本科</td>
+              </tr>
+            </tbody>
+        </table>
+<section id="postgraduate" class="section">
+  <h2>考研与考博成果</h2>
+  <p>SAMPSON科研实验组注重学生科研能力与学术发展的同步提升，近年来在考研与考博方面取得了显著成果。</p>
+  <table class="award-table">
+    <thead>
+      <tr>
+        <th>姓名</th>
+        <th>录取单位</th>
+        <th>录取类型</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>于子芮</td>
+        <td>复旦大学</td>
+        <td>博士研究生</td>
+      </tr>
+      <tr>
+        <td>Hisham Al‑Ward </td>
+        <td>同济大学</td>
+        <td>博士研究生</td>
+      </tr>
+      <tr>
+        <td>Francine Ngaffo Mekontso </td>
+        <td>海南大学</td>
+        <td>博士研究生</td>
+      </tr>
+      <tr>
+        <td>张琳</td>
+        <td>哈尔滨医科大学</td>
+        <td>硕士研究生</td>
+      </tr>
+      <tr>
+        <td>韩语纯</td>
+        <td>哈尔滨医科大学</td>
+        <td>硕士研究生</td>
+      </tr>
+      <tr>
+        <td>孙玮</td>
+        <td>吉林大学</td>
+        <td>硕士研究生</td>
+      </tr>
+      <tr>
+        <td>计娜</td>
+        <td>桂林医科大学</td>
+        <td>硕士研究生</td>
+      </tr>
+      <tr>
+        <td>师可馨</td>
+        <td>河南中医药大学</td>
+        <td>硕士研究生</td>
+      </tr>
+      <tr>
+        <td>蔡修燕</td>
+        <td>陕西中医药大学</td>
+        <td>硕士研究生</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+<!-- 学术论文模块：时间轴形式 -->
+<section id="publications-list" class="section">
+  <h2 class="timeline-title">学术论文</h2>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <span class="date">2023-10-21</span>
+        <h3>The Role of Cystathionine-β-Synthase, HH2S, and miRNA-377 in Hypoxic-Ischemic Encephalopathy</h3>
+        <p><strong>级别：</strong>SCI<br>
+           <strong>期刊：</strong>Journal of Molecular Neuroscience（American）</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <span class="date">2023-01-16</span>
+        <h3>The relationship between miRNA-210 and SCN1B in fetal rats with hypoxic-ischemic brain injury</h3>
+        <p><strong>级别：</strong>SCI<br>
+           <strong>期刊：</strong>Bioscience Reports（American）</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <span class="date">2021-05-26</span>
+        <h3>Voltage-Gated Sodium Channel β1 Gene: An Overview</h3>
+        <p><strong>级别：</strong>SCI<br>
+           <strong>期刊：</strong>Human Heredity（Switzerland）</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <span class="date">2020-09-09</span>
+        <h3>The Role of miR-210 in the Biological System: A Current Overview</h3>
+        <p><strong>级别：</strong>SCI<br>
+           <strong>期刊：</strong>Human Heredity（Switzerland）</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <span class="date">2022</span>
+        <h3>黑龙江省汉族人群新生儿缺氧缺血性脑病miRNA-210表达变化的研究</h3>
+        <p><strong>级别：</strong>省级<br>
+           <strong>期刊：</strong>黑龙江医药科学（中国）</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <span class="date">2021</span>
+        <h3>不同酶对巫山淫羊藿中淫羊藿苷和朝藿定C含量的影响及抑菌活性研究</h3>
+        <p><strong>级别：</strong>核心<br>
+           <strong>期刊：</strong>化学与生物工程（中国）</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <span class="date">2020</span>
+        <h3>MicroRNA在缺氧缺血性脑病调控机制中的研究进展</h3>
+        <p><strong>级别：</strong>核心<br>
+           <strong>期刊：</strong>海南医学院学报（中国）</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <span class="date">2019</span>
+        <h3>宫内窘迫新生儿发生缺氧缺血性脑病的危险因素分析</h3>
+        <p><strong>级别：</strong>核心<br>
+           <strong>期刊：</strong>中国现代医学杂志（中国）</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <span class="date">2018</span>
+        <h3>佳木斯地区汉族人群SCN1A基因多态性与HIE相关性研究</h3>
+        <p><strong>级别：</strong>省级<br>
+           <strong>期刊：</strong>黑龙江医药科学（中国）</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<style>
+/* 时间轴样式 */
+.timeline-title {
+  text-align: center;
+  font-size: 2em;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.timeline {
+  position: relative;
+  margin: 40px auto;
+  padding-left: 40px;
+  max-width: 800px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 20px;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(to bottom, #48c6ef, #6f86d6);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 12px;
+  top: 10px;
+  width: 16px;
+  height: 16px;
+  background-color: #fff;
+  border: 3px solid #48c6ef;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.timeline-content {
+  background: rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 15px 20px;
+  margin-left: 40px;
+  backdrop-filter: blur(4px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.timeline-content:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(72, 198, 239, 0.3);
+}
+
+.timeline-content .date {
+  font-weight: bold;
+  color: #48c6ef;
+  font-size: 0.95em;
+}
+
+.timeline-content h3 {
+  margin-top: 5px;
+  font-size: 1.1em;
+  font-weight: 500;
+  color: #fff;
+}
+
+.timeline-content p {
+  margin-top: 8px;
+  font-size: 0.9em;
+  line-height: 1.6;
+  color: #d0d0d0;
+}
+
+@media (max-width: 768px) {
+  .timeline {
+    padding-left: 20px;
+  }
+  .timeline-content {
+    margin-left: 30px;
+  }
+  .timeline-content h3 {
+    font-size: 1em;
+  }
+}
+</style>
+
+ <section id="employment" class="section">
+   <h2>就业单位</h2>
+      <table class="award-table">
+      <thead>
+       <tr>
+        <th>姓名</th>
+        <th>就业单位</th>
+        <th>职业</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>张海娟</td>
+        <td>陕西省结核病防治院</td>
+        <td>护士</td>
+      </tr>
+      <tr>
+        <td>张琳</td>
+        <td>哈尔滨医科大学附属第二医院</td>
+        <td>医生</td>
+      </tr>
+      <tr>
+        <td>纪洪兵</td>
+        <td>北京市房山区第一医院</td>
+        <td>医生</td>
+      </tr>
+      <tr>
+        <td>赵倩</td>
+        <td>西安交通大学第二附属医院</td>
+        <td>护士</td>
+      </tr>
+      <tr>
+        <td>Francine Ngaffo Mekontso</td>
+        <td>Cameroon Beverage Company</td>
+        <td>Research and development engineer</td>
+      </tr>
+      <tr>
+        <td>吝佳敏</td>
+        <td>西安国际医学中心</td>
+        <td>护士</td>
+      </tr>
+      <tr>
+        <td>李易晓</td>
+        <td>深圳市第二人民医院（深圳大学第一附属医院）</td>
+        <td>医生</td>
+      </tr>
+      <tr>
+        <td>丁乐乐</td>
+        <td>西安大兴医院</td>
+        <td>护士</td>
+      </tr>
+      <!-- 如需添加更多行，继续往下复制 <tr>...</tr> 结构 -->
+    </tbody>
+  </table>
+ </section>
+
+    <script src="/home.js"></script>
+    <section id="photos" class="section">
+            <h2>实验照片</h2>
+            <p></p>
+        </section>
+
+        <section id="admission" class="section">
+            <h2>招生信息</h2>
+            <p>基本要求：对科研感兴趣的本科、硕士、博士及博士后人员</p>
+        </section>
+
+    <footer class="footer">
+        <p>地址：108-2 | 版权所有© 科研实验组 </p>
+        <p>网站维护负责人：刘文龙 联系电话：15596827232</p>
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        本站总访问量：<span id="busuanzi_value_site_pv"></span> 次
+        </span>
+    </footer>
+    <button id="backToTop" title="返回顶部">↑</button>
+   <script>
+document.addEventListener('DOMContentLoaded', function () {
+  /* ===== 返回顶部 ===== */
+  const btnTop = document.getElementById("backToTop");
+  if (btnTop) {
+    const toggleTopBtn = () => {
+      const y = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+      if (y > 300) btnTop.classList.add('show'); else btnTop.classList.remove('show');
+    };
+    window.addEventListener('scroll', toggleTopBtn, { passive: true });
+    toggleTopBtn();
+    btnTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  /* ===== 下拉菜单 ===== */
+  document.querySelectorAll('.dropdown-toggle').forEach(function(toggle) {
+    toggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      const parent = this.closest('.dropdown');
+      if (!parent) return;
+      parent.classList.toggle('open');
+      document.querySelectorAll('.dropdown.open').forEach(function(other) {
+        if (other !== parent) other.classList.remove('open');
+      });
+    });
+  });
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.dropdown')) {
+      document.querySelectorAll('.dropdown.open').forEach(function(item) {
+        item.classList.remove('open');
+      });
+    }
+  });
+
+  /* ===== 年份卡片横向走马灯（存在才启用） ===== */
+  (function(){
+    const carousel = document.querySelector('.cards-carousel');
+    if (!carousel) return;
+
+    const buttons = document.querySelectorAll('.year-btn');
+    const groups  = document.querySelectorAll('.cards-group');
+
+    // 点击年份滚动
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const year = btn.dataset.target;
+        const target = document.querySelector(`#y${year}`);
+        if (!target) return;
+        const targetCenter = target.offsetLeft + target.offsetWidth/2;
+        const scrollLeft = Math.max(0, targetCenter - carousel.clientWidth/2);
+        carousel.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+        buttons.forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    // 鼠标滚轮横向滚动
+    carousel.addEventListener('wheel', (e) => {
+      if (e.deltaY === 0) return;
+      e.preventDefault();
+      carousel.scrollLeft += e.deltaY;
+    }, { passive: false });
+
+    // 拖拽滑动
+    let isDown = false, startX = 0, startScroll = 0;
+    carousel.addEventListener('pointerdown', (e) => {
+      isDown = true;
+      startX = e.clientX;
+      startScroll = carousel.scrollLeft;
+      carousel.setPointerCapture?.(e.pointerId);
+      carousel.classList.add('dragging');
+    });
+    const endDrag = (e) => {
+      if (!isDown) return;
+      isDown = false;
+      try { carousel.releasePointerCapture?.(e.pointerId); } catch(_) {}
+      carousel.classList.remove('dragging');
+    };
+    carousel.addEventListener('pointermove', (e) => {
+      if (!isDown) return;
+      const dx = e.clientX - startX;
+      carousel.scrollLeft = startScroll - dx;
+    });
+    carousel.addEventListener('pointerup', endDrag);
+    carousel.addEventListener('pointercancel', endDrag);
+    carousel.addEventListener('pointerleave', endDrag);
+
+    // 滚动时高亮年份
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(()=>{
+        const center = carousel.scrollLeft + carousel.clientWidth/2;
+        let activeYear = null;
+        groups.forEach(g => {
+          const left = g.offsetLeft, right = left + g.offsetWidth;
+          if (center >= left && center <= right) activeYear = g.dataset.year;
+        });
+        if (activeYear) {
+          buttons.forEach(b => b.classList.toggle('active', b.dataset.target === activeYear));
+        }
+        ticking = false;
+      });
+    };
+    carousel.addEventListener('scroll', onScroll, { passive: true });
+
+    // 初始定位
+    (document.querySelector('.year-btn.active') || buttons[0])?.click();
+  })();
+
+  /* ===== Busuanzi 访客统计（有库才调用） ===== */
+  if (typeof Busuanzi !== 'undefined' && Busuanzi?.fetch) {
+    // 显示容器
+    const pvC = document.getElementById('busuanzi_container_site_pv');
+    const uvC = document.getElementById('busuanzi_container_site_uv');
+    pvC && (pvC.style.display = '');
+    uvC && (uvC.style.display = '');
+    // 拉取
+    Busuanzi.fetch();
+  }
+});
+</script>
+
+<!-- 放在你的脚本后或前都行，确保是 HTTPS -->
+<script async src="https://lib.baomitu.com/busuanzi/2.3.0/busuanzi.min.js"></script>
+
+<!-- 访问统计占位（Busuanzi） -->
+<footer>
+  <small>
+    <span id="busuanzi_container_site_pv" style="display:none;">
+      总访问量：<span id="busuanzi_value_site_pv">0</span>
+    </span>
+    &nbsp;|&nbsp;
+    <span id="busuanzi_container_site_uv" style="display:none;">
+      访客数：<span id="busuanzi_value_site_uv">0</span>
+    </span>
+  </small>
+</footer>
+
+<!-- 返回顶部按钮（必须有这个元素，脚本才有目标） -->
+<button id="backToTop" aria-label="返回顶部">↑</button>
+
+  </body>
+
+</html>
+
+
