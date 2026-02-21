@@ -34,16 +34,16 @@ db.exec(`
 `);
 
 // 检查并创建默认管理员
-const adminExists = db.prepare('SELECT username FROM users WHERE username = ?').get('admin');
+const adminExists = db.prepare('SELECT username FROM users WHERE username = ?').get('3501391833@qq.com');
 if (!adminExists) {
-  const adminPassword = bcrypt.hashSync('admin123', 10);
+  const adminPassword = bcrypt.hashSync('460904', 10);
   db.prepare('INSERT INTO users (id, username, password_hash, role) VALUES (?, ?, ?, ?)').run(
     uuidv4(),
-    'admin',
+    '3501391833@qq.com',
     adminPassword,
     'admin'
   );
-  console.log('✅ 默认管理员已创建: admin / admin123');
+  console.log('✅ 默认管理员已创建: 3501391833@qq.com / 460904');
 }
 
 // ============ 中间件 ============
