@@ -1,2 +1,16 @@
+# Dependencies
 node_modules/
-data/
+
+# User data (contains passwords!)
+users.json
+
+# Environment variables
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
