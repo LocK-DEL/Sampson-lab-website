@@ -21,9 +21,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// 静态文件服务
-app.use(express.static(__dirname));
-
 // 读取用户
 const getUsers = () => {
   try {
@@ -37,6 +34,53 @@ const getUsers = () => {
 const saveUsers = (users) => {
   fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
 };
+
+// 认证中间件 - 检查是否登录
+const requireAuth = (req, res, next) => {
+  const token = req.cookies.token;
+  
+  if (!token) {
+    return res.status(401).json({ authenticated: false, message: '请先登录' });
+  }
+  
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch {
+    return res.status(401).json({ authenticated: false, message: '登录已过期' });
+  }
+};
+
+// 公开静态文件（首页、登录页等）
+app.use(express.static(__dirname, {
+  index: 'login.html',  // 默认显示登录页
+  extensions: ['html']
+}));
+
+// 登录页面 - 公开访问
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'login.html'));
+});
+
+// 登录页面 - 也支持 /login.html
+app.get('/login.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'login.html'));
+});
+
+// 受保护的静态文件服务 - 需要登录
+const protectedStatic = express.static(__dirname, {
+  setHeaders: (res, filePath) => {
+    // 检查是否是受保护的文件
+    const protectedFiles = ['index.html', 'exam.html', 'style.css', 'script.js', 'home.js', 'auth.css', 'exam.css'];
+    const fileName = path.basename(filePath);
+    
+    if (protectedFiles.includes(fileName)) {
+      // 让前端处理重定向
+      res.set('X-Require-Auth', 'true');
+    }
+  }
+});
 
 // CSRF Token 端点
 app.get('/csrf-token', (req, res) => {
@@ -154,7 +198,7 @@ app.post('/login', async (req, res) => {
       success: true, 
       message: '登录成功',
       csrfToken,
-      redirect: '/'
+      redirect: '/index.html'
     });
     
   } catch (error) {
@@ -186,6 +230,37 @@ app.get('/api/user', (req, res) => {
 app.post('/logout', (req, res) => {
   res.clearCookie('token');
   res.json({ success: true, message: '已退出登录' });
+});
+
+// 受保护的 API 路由
+app.get('/api/protected-data', requireAuth, (req, res) => {
+  // 这里可以放置内部资料数据
+  res.json({
+    success: true,
+    data: {
+      message: '这是内部资料，只有登录用户才能查看',
+      documents: [
+        { name: '实验组内部手册.pdf', date: '2024-01-15' },
+        { name: '成员通讯录.xlsx', date: '2024-02-01' },
+        { name: '财务记录.pdf', date: '2024-01-20' }
+      ]
+    }
+  });
+});
+
+// 检查是否需要登录中间件 - 用于前端页面
+app.use((req, res, next) => {
+  const token = req.cookies.token;
+  const path = req.path;
+  
+  // 需要保护的页面
+  const protectedPaths = ['/index.html', '/exam.html', '/home.js', '/script.js'];
+  
+  if (protectedPaths.includes(path) && !token) {
+    return res.redirect('/login.html');
+  }
+  
+  next();
 });
 
 // 启动服务器

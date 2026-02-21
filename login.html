@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 - SAMPSON科研实验组</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Cinzel', serif;
+            background: linear-gradient(135deg, #1a3e3e 0%, #2d5a5a 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+        .login-container h1 {
+            text-align: center;
+            color: #1a3e3e;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #1a3e3e;
+        }
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: #1a3e3e;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #145c5c;
+        }
+        .btn-secondary {
+            background: #666;
+            margin-top: 10px;
+        }
+        .btn-secondary:hover {
+            background: #555;
+        }
+        .message {
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .message.error {
+            background: #fee;
+            color: #c33;
+            border: 1px solid #fcc;
+        }
+        .message.success {
+            background: #efe;
+            color: #3c3;
+            border: 1px solid #cfc;
+        }
+        .switch-mode {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .switch-mode a {
+            color: #1a3e3e;
+            text-decoration: none;
+        }
+        .switch-mode a:hover {
+            text-decoration: underline;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>🔐 成员登录</h1>
+        
+        <div id="message" class="message hidden"></div>
+        
+        <!-- 登录表单 -->
+        <form id="login-form">
+            <div class="form-group">
+                <label for="username">用户名</label>
+                <input type="text" id="username" name="username" required placeholder="请输入用户名">
+            </div>
+            <div class="form-group">
+                <label for="password">密码</label>
+                <input type="password" id="password" name="password" required placeholder="请输入密码">
+            </div>
+            <button type="submit" class="btn">登录</button>
+            <button type="button" class="btn btn-secondary" onclick="showRegister()">注册新账号</button>
+        </form>
+        
+        <!-- 注册表单 -->
+        <form id="register-form" class="hidden">
+            <div class="form-group">
+                <label for="reg-username">用户名</label>
+                <input type="text" id="reg-username" name="username" required placeholder="至少3个字符" minlength="3">
+            </div>
+            <div class="form-group">
+                <label for="reg-password">密码</label>
+                <input type="password" id="reg-password" name="password" required placeholder="至少6个字符" minlength="6">
+            </div>
+            <div class="form-group">
+                <label for="reg-password2">确认密码</label>
+                <input type="password" id="reg-password2" name="password2" required placeholder="再次输入密码">
+            </div>
+            <button type="submit" class="btn">注册</button>
+            <button type="button" class="btn btn-secondary" onclick="showLogin()">已有账号？登录</button>
+        </form>
+    </div>
+
+    <script>
+        // 显示消息
+        function showMessage(text, type) {
+            const msg = document.getElementById('message');
+            msg.textContent = text;
+            msg.className = 'message ' + type;
+            msg.classList.remove('hidden');
+        }
+        
+        // 切换到注册
+        function showRegister() {
+            document.getElementById('login-form').classList.add('hidden');
+            document.getElementById('register-form').classList.remove('hidden');
+            document.querySelector('.login-container h1').textContent = '🔐 成员注册';
+            document.getElementById('message').classList.add('hidden');
+        }
+        
+        // 切换到登录
+        function showLogin() {
+            document.getElementById('register-form').classList.add('hidden');
+            document.getElementById('login-form').classList.remove('hidden');
+            document.querySelector('.login-container h1').textContent = '🔐 成员登录';
+            document.getElementById('message').classList.add('hidden');
+        }
+        
+        // 登录提交
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                const res = await fetch('/login', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({username, password})
+                });
+                const data = await res.json();
+                
+                if (data.success) {
+                    showMessage('登录成功！正在跳转...', 'success');
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 1000);
+                } else {
+                    showMessage(data.message || '登录失败', 'error');
+                }
+            } catch (err) {
+                showMessage('网络错误，请稍后重试', 'error');
+            }
+        });
+        
+        // 注册提交
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('reg-username').value;
+            const password = document.getElementById('reg-password').value;
+            const password2 = document.getElementById('reg-password2').value;
+            
+            if (password !== password2) {
+                showMessage('两次密码输入不一致', 'error');
+                return;
+            }
+            
+            try {
+                const res = await fetch('/register', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({username, password})
+                });
+                const data = await res.json();
+                
+                if (data.success) {
+                    showMessage('注册成功！请登录', 'success');
+                    setTimeout(showLogin, 1500);
+                } else {
+                    showMessage(data.message || '注册失败', 'error');
+                }
+            } catch (err) {
+                showMessage('网络错误，请稍后重试', 'error');
+            }
+        });
+    </script>
+</body>
+</html>
