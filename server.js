@@ -4,46 +4,71 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const { v4: uuidv4 } = require('uuid');
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const JWT_SECRET = process.env.JWT_SECRET || 'sampson-lab-secret-key-2024';
 
-// ============ SQLite 数据库初始化 ============
+// ============ SQLite 数据库初始化 (使用 sql.js) ============
 let db;
-try {
-  // 动态导入 better-sqlite3
-  const Database = require('better-sqlite3');
-  const dbPath = process.env.DATABASE_URL || path.join(__dirname, 'sampson.db');
-  db = new Database(dbPath);
-  console.log('✅ SQLite 数据库连接成功:', dbPath);
-} catch (err) {
-  console.error('❌ 数据库连接失败:', err);
-  process.exit(1);
+const dbPath = path.join(__dirname, 'sampson.db');
+
+async function initDatabase() {
+  const initSqlJs = require('sql.js');
+  const SQL = await initSqlJs();
+  
+  // 尝试加载现有数据库
+  try {
+    if (fs.existsSync(dbPath)) {
+      const fileBuffer = fs.readFileSync(dbPath);
+      db = new SQL.Database(fileBuffer);
+      console.log('✅ 已加载现有数据库');
+    } else {
+      db = new SQL.Database();
+      console.log('✅ 创建新数据库');
+    }
+  } catch (err) {
+    db = new SQL.Database();
+    console.log('✅ 创建新数据库（加载失败）');
+  }
+  
+  // 创建用户表
+  db.run(`
+    CREATE TABLE IF NOT EXISTS users (
+      id TEXT PRIMARY KEY,
+      username TEXT UNIQUE NOT NULL,
+      password_hash TEXT NOT NULL,
+      role TEXT DEFAULT 'member',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+  
+  // 检查并创建默认管理员
+  const stmt = db.prepare('SELECT username FROM users WHERE username = ?');
+  stmt.bind(['3501391833@qq.com']);
+  const adminExists = stmt.step();
+  stmt.free();
+  
+  if (!adminExists) {
+    const adminPassword = bcrypt.hashSync('460904', 10);
+    db.run('INSERT INTO users (id, username, password_hash, role) VALUES (?, ?, ?, ?)', 
+      [uuidv4(), '3501391833@qq.com', adminPassword, 'admin']);
+    console.log('✅ 默认管理员已创建: 3501391833@qq.com / 460904');
+  }
+  
+  // 保存数据库
+  saveDatabase();
 }
 
-// 创建用户表
-db.exec(`
-  CREATE TABLE IF NOT EXISTS users (
-    id TEXT PRIMARY KEY,
-    username TEXT UNIQUE NOT NULL,
-    password_hash TEXT NOT NULL,
-    role TEXT DEFAULT 'member',
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  )
-`);
-
-// 检查并创建默认管理员
-const adminExists = db.prepare('SELECT username FROM users WHERE username = ?').get('3501391833@qq.com');
-if (!adminExists) {
-  const adminPassword = bcrypt.hashSync('460904', 10);
-  db.prepare('INSERT INTO users (id, username, password_hash, role) VALUES (?, ?, ?, ?)').run(
-    uuidv4(),
-    '3501391833@qq.com',
-    adminPassword,
-    'admin'
-  );
-  console.log('✅ 默认管理员已创建: 3501391833@qq.com / 460904');
+function saveDatabase() {
+  try {
+    const data = db.export();
+    const buffer = Buffer.from(data);
+    fs.writeFileSync(dbPath, buffer);
+  } catch (err) {
+    console.error('保存数据库失败:', err);
+  }
 }
 
 // ============ 中间件 ============
@@ -53,18 +78,34 @@ app.use(cookieParser());
 
 // ============ 工具函数 ============
 const getUserByUsername = (username) => {
-  return db.prepare('SELECT * FROM users WHERE username = ?').get(username);
+  const stmt = db.prepare('SELECT * FROM users WHERE username = ?');
+  stmt.bind([username]);
+  if (stmt.step()) {
+    const row = stmt.getAsObject();
+    stmt.free();
+    return row;
+  }
+  stmt.free();
+  return null;
 };
 
 const getAllUsers = () => {
-  return db.prepare('SELECT id, username, role, created_at as createdAt FROM users ORDER BY created_at DESC').all();
+  const results = [];
+  const stmt = db.prepare('SELECT id, username, role, created_at as createdAt FROM users ORDER BY created_at DESC');
+  while (stmt.step()) {
+    results.push(stmt.getAsObject());
+  }
+  stmt.free();
+  return results;
 };
 
 const createUser = (username, password, role = 'member') => {
   const id = uuidv4();
   const passwordHash = bcrypt.hashSync(password, 10);
   try {
-    db.prepare('INSERT INTO users (id, username, password_hash, role) VALUES (?, ?, ?, ?)').run(id, username, passwordHash, role);
+    db.run('INSERT INTO users (id, username, password_hash, role) VALUES (?, ?, ?, ?)', 
+      [id, username, passwordHash, role]);
+    saveDatabase();
     return { success: true };
   } catch (err) {
     return { success: false, message: err.message };
@@ -72,9 +113,10 @@ const createUser = (username, password, role = 'member') => {
 };
 
 const deleteUser = (username) => {
-  if (username === 'admin') return { success: false, message: '不能删除管理员' };
+  if (username === '3501391833@qq.com') return { success: false, message: '不能删除管理员' };
   try {
-    db.prepare('DELETE FROM users WHERE username = ?').run(username);
+    db.run('DELETE FROM users WHERE username = ?', [username]);
+    saveDatabase();
     return { success: true };
   } catch (err) {
     return { success: false, message: err.message };
@@ -252,6 +294,11 @@ app.post('/api/admin/delete-user', authenticate, requireAdmin, (req, res) => {
 });
 
 // ============ 启动服务器 ============
-app.listen(PORT, () => {
-  console.log(`🚀 Sampson Lab 服务器运行在 http://localhost:${PORT}`);
+initDatabase().then(() => {
+  app.listen(PORT, () => {
+    console.log(`🚀 Sampson Lab 服务器运行在 http://localhost:${PORT}`);
+  });
+}).catch(err => {
+  console.error('数据库初始化失败:', err);
+  process.exit(1);
 });
