@@ -177,6 +177,11 @@ app.get('/exam.html', authenticate, (req, res) => {
 // 静态文件
 app.use(express.static(__dirname));
 
+// ============ 健康检查（Render 需要） ============
+app.get('/healthz', (req, res) => {
+  res.send('OK');
+});
+
 // ============ API 路由 ============
 
 // 获取当前用户状态
