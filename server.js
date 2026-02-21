@@ -13,7 +13,18 @@ const USERS_FILE = path.join(__dirname, 'users.json');
 
 // 初始化用户数据文件
 if (!fs.existsSync(USERS_FILE)) {
-  fs.writeFileSync(USERS_FILE, JSON.stringify([], null, 2));
+  // 默认创建管理员账号
+  const defaultUsers = [
+    {
+      id: uuidv4(),
+      username: 'admin',
+      password: bcrypt.hashSync('admin123', 10),
+      role: 'admin',
+      createdAt: new Date().toISOString()
+    }
+  ];
+  fs.writeFileSync(USERS_FILE, JSON.stringify(defaultUsers, null, 2));
+  console.log('✅ 默认管理员账号已创建: admin / admin123');
 }
 
 // 中间件
@@ -35,7 +46,7 @@ const saveUsers = (users) => {
   fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
 };
 
-// 认证中间件 - 检查是否登录
+// 认证中间件
 const requireAuth = (req, res, next) => {
   const token = req.cookies.token;
   
@@ -52,13 +63,31 @@ const requireAuth = (req, res, next) => {
   }
 };
 
-// 公开静态文件（首页、登录页等）
-app.use(express.static(__dirname, {
-  index: 'login.html',  // 默认显示登录页
-  extensions: ['html']
-}));
+// 管理员中间件
+const requireAdmin = (req, res, next) => {
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({ success: false, message: '需要管理员权限' });
+  }
+  next();
+};
 
-// 首页 - 检查是否登录，未登录则跳转登录页
+// 公开页面
+app.get('/login.html', (req, res) => {
+  const token = req.cookies.token;
+  if (token) {
+    try {
+      const decoded = jwt.verify(token, JWT_SECRET);
+      return res.redirect(decoded.role === 'admin' ? '/admin.html' : '/');
+    } catch {}
+  }
+  res.sendFile(path.join(__dirname, 'login.html'));
+});
+
+app.get('/login', (req, res) => {
+  res.redirect('/login.html');
+});
+
+// 首页 - 需要登录
 app.get('/', (req, res, next) => {
   const token = req.cookies.token;
   if (!token) {
@@ -66,177 +95,117 @@ app.get('/', (req, res, next) => {
   }
   try {
     jwt.verify(token, JWT_SECRET);
-    // 已登录，提供首页
     res.sendFile(path.join(__dirname, 'index.html'));
   } catch {
-    // token 无效，跳转登录
     res.redirect('/login.html');
   }
 });
 
-// 登录页面 - 公开访问（已登录用户直接跳转首页）
-app.get('/login', (req, res) => {
+// 管理页 - 需要管理员权限
+app.get('/admin.html', (req, res) => {
   const token = req.cookies.token;
-  if (token) {
-    try {
-      jwt.verify(token, JWT_SECRET);
-      return res.redirect('/');
-    } catch {}
+  if (!token) {
+    return res.redirect('/login.html');
   }
-  res.sendFile(path.join(__dirname, 'login.html'));
-});
-
-// 登录页面 - 也支持 /login.html
-app.get('/login.html', (req, res) => {
-  const token = req.cookies.token;
-  if (token) {
-    try {
-      jwt.verify(token, JWT_SECRET);
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    if (decoded.role !== 'admin') {
       return res.redirect('/');
-    } catch {}
-  }
-  res.sendFile(path.join(__dirname, 'login.html'));
-});
-
-// 受保护的静态文件服务 - 需要登录
-const protectedStatic = express.static(__dirname, {
-  setHeaders: (res, filePath) => {
-    // 检查是否是受保护的文件
-    const protectedFiles = ['index.html', 'exam.html', 'style.css', 'script.js', 'home.js', 'auth.css', 'exam.css'];
-    const fileName = path.basename(filePath);
-    
-    if (protectedFiles.includes(fileName)) {
-      // 让前端处理重定向
-      res.set('X-Require-Auth', 'true');
     }
+    res.sendFile(path.join(__dirname, 'admin.html'));
+  } catch {
+    res.redirect('/login.html');
   }
 });
 
-// CSRF Token 端点
-app.get('/csrf-token', (req, res) => {
-  const token = uuidv4();
-  res.json({ csrfToken: token });
-});
+// 静态文件
+app.use(express.static(__dirname));
 
-// 注册端点
-app.post('/register', async (req, res) => {
+// ============ API 路由 ============
+
+// 注册
+app.post('/api/register', async (req, res) => {
   try {
     const { username, password } = req.body;
     
     if (!username || !password) {
-      return res.status(400).json({ 
-        success: false, 
-        message: '用户名和密码不能为空' 
-      });
+      return res.json({ success: false, message: '用户名和密码不能为空' });
     }
     
     if (username.length < 3 || password.length < 6) {
-      return res.status(400).json({ 
-        success: false, 
-        message: '用户名至少3字符，密码至少6字符' 
-      });
+      return res.json({ success: false, message: '用户名至少3字符，密码至少6字符' });
     }
     
     const users = getUsers();
     
-    // 检查用户是否存在
     if (users.find(u => u.username === username)) {
-      return res.status(400).json({ 
-        success: false, 
-        message: '用户名已存在' 
-      });
+      return res.json({ success: false, message: '用户名已存在' });
     }
     
-    // 加密密码
     const hashedPassword = await bcrypt.hash(password, 10);
     
-    // 创建用户
     const newUser = {
       id: uuidv4(),
       username,
       password: hashedPassword,
+      role: 'user',  // 默认普通成员
       createdAt: new Date().toISOString()
     };
     
     users.push(newUser);
     saveUsers(users);
     
-    res.json({ 
-      success: true, 
-      message: '注册成功！请登录' 
-    });
+    res.json({ success: true, message: '注册成功！请登录' });
     
   } catch (error) {
     console.error('注册错误:', error);
-    res.status(500).json({ 
-      success: false, 
-      message: '服务器错误' 
-    });
+    res.json({ success: false, message: '服务器错误' });
   }
 });
 
-// 登录端点
-app.post('/login', async (req, res) => {
+// 登录
+app.post('/api/login', async (req, res) => {
   try {
     const { username, password } = req.body;
     
     if (!username || !password) {
-      return res.status(400).json({ 
-        success: false, 
-        message: '用户名和密码不能为空' 
-      });
+      return res.json({ success: false, message: '用户名和密码不能为空' });
     }
     
     const users = getUsers();
     const user = users.find(u => u.username === username);
     
     if (!user) {
-      return res.status(401).json({ 
-        success: false, 
-        message: '用户名或密码错误' 
-      });
+      return res.json({ success: false, message: '用户名或密码错误' });
     }
     
-    // 验证密码
     const isValid = await bcrypt.compare(password, user.password);
     
     if (!isValid) {
-      return res.status(401).json({ 
-        success: false, 
-        message: '用户名或密码错误' 
-      });
+      return res.json({ success: false, message: '用户名或密码错误' });
     }
     
-    // 生成 JWT
     const token = jwt.sign(
-      { id: user.id, username: user.username },
+      { id: user.id, username: user.username, role: user.role },
       JWT_SECRET,
       { expiresIn: '7d' }
     );
     
-    // 设置 Cookie
     res.cookie('token', token, {
       httpOnly: true,
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7天
+      maxAge: 7 * 24 * 60 * 60 * 1000,
       sameSite: 'lax'
     });
-    
-    // 生成新的 CSRF token
-    const csrfToken = uuidv4();
     
     res.json({ 
       success: true, 
       message: '登录成功',
-      csrfToken,
-      redirect: '/'
+      isAdmin: user.role === 'admin'
     });
     
   } catch (error) {
     console.error('登录错误:', error);
-    res.status(500).json({ 
-      success: false, 
-      message: '服务器错误' 
-    });
+    res.json({ success: false, message: '服务器错误' });
   }
 });
 
@@ -245,52 +214,101 @@ app.get('/api/user', (req, res) => {
   const token = req.cookies.token;
   
   if (!token) {
-    return res.status(401).json({ authenticated: false });
+    return res.json({ authenticated: false });
   }
   
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
-    res.json({ authenticated: true, username: decoded.username });
+    res.json({ 
+      authenticated: true, 
+      username: decoded.username,
+      role: decoded.role,
+      isAdmin: decoded.role === 'admin'
+    });
   } catch {
-    res.status(401).json({ authenticated: false });
+    res.json({ authenticated: false });
   }
 });
 
 // 登出
-app.post('/logout', (req, res) => {
+app.post('/api/logout', (req, res) => {
   res.clearCookie('token');
-  res.json({ success: true, message: '已退出登录' });
+  res.json({ success: true });
 });
 
-// 受保护的 API 路由
-app.get('/api/protected-data', requireAuth, (req, res) => {
-  // 这里可以放置内部资料数据
+// ============ 管理员 API ============
+
+// 获取用户列表
+app.get('/api/users', requireAuth, requireAdmin, (req, res) => {
+  const users = getUsers();
   res.json({
     success: true,
-    data: {
-      message: '这是内部资料，只有登录用户才能查看',
-      documents: [
-        { name: '实验组内部手册.pdf', date: '2024-01-15' },
-        { name: '成员通讯录.xlsx', date: '2024-02-01' },
-        { name: '财务记录.pdf', date: '2024-01-20' }
-      ]
-    }
+    users: users.map(u => ({
+      id: u.id,
+      username: u.username,
+      role: u.role,
+      createdAt: u.createdAt
+    }))
   });
 });
 
-// 检查是否需要登录中间件 - 用于前端页面
-app.use((req, res, next) => {
-  const token = req.cookies.token;
-  const path = req.path;
+// 管理员添加用户
+app.post('/api/admin/add-user', requireAuth, requireAdmin, async (req, res) => {
+  try {
+    const { username, password, role } = req.body;
+    
+    if (!username || !password) {
+      return res.json({ success: false, message: '用户名和密码不能为空' });
+    }
+    
+    if (username.length < 3 || password.length < 6) {
+      return res.json({ success: false, message: '用户名至少3字符，密码至少6字符' });
+    }
+    
+    const users = getUsers();
+    
+    if (users.find(u => u.username === username)) {
+      return res.json({ success: false, message: '用户名已存在' });
+    }
+    
+    const hashedPassword = await bcrypt.hash(password, 10);
+    
+    const newUser = {
+      id: uuidv4(),
+      username,
+      password: hashedPassword,
+      role: role === 'admin' ? 'admin' : 'user',
+      createdAt: new Date().toISOString()
+    };
+    
+    users.push(newUser);
+    saveUsers(users);
+    
+    res.json({ success: true, message: '用户添加成功' });
+    
+  } catch (error) {
+    res.json({ success: false, message: '服务器错误' });
+  }
+});
+
+// 管理员删除用户
+app.post('/api/admin/delete-user', requireAuth, requireAdmin, (req, res) => {
+  const { username } = req.body;
   
-  // 需要保护的页面
-  const protectedPaths = ['/index.html', '/exam.html', '/home.js', '/script.js'];
-  
-  if (protectedPaths.includes(path) && !token) {
-    return res.redirect('/login.html');
+  if (username === 'admin') {
+    return res.json({ success: false, message: '不能删除超级管理员' });
   }
   
-  next();
+  let users = getUsers();
+  const initialLength = users.length;
+  users = users.filter(u => u.username !== username);
+  
+  if (users.length === initialLength) {
+    return res.json({ success: false, message: '用户不存在' });
+  }
+  
+  saveUsers(users);
+  res.json({ success: true, message: '用户已删除' });
 });
 
 // 启动服务器
