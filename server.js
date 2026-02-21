@@ -174,9 +174,6 @@ app.get('/exam.html', authenticate, (req, res) => {
   res.sendFile(path.join(__dirname, 'exam.html'));
 });
 
-// 静态文件
-app.use(express.static(__dirname));
-
 // ============ 健康检查（Render 需要） ============
 app.get('/healthz', (req, res) => {
   res.send('OK');
@@ -299,6 +296,9 @@ app.post('/api/admin/delete-user', authenticate, requireAdmin, (req, res) => {
     res.json({ success: false, message: result.message });
   }
 });
+
+// 静态文件服务（放在所有API路由之后）
+app.use(express.static(__dirname));
 
 // ============ 启动服务器 ============
 initDatabase().then(() => {
