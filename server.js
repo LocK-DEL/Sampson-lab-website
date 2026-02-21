@@ -221,13 +221,15 @@ app.post('/api/register', async (req, res) => {
 
 // 登录
 app.post('/api/login', async (req, res) => {
-  const { username, password } = req.body;
+  // 支持 email 或 username 字段
+  const { username, email, password } = req.body;
+  const loginName = username || email;
   
-  if (!username || !password) {
+  if (!loginName || !password) {
     return res.json({ success: false, message: '用户名和密码不能为空' });
   }
   
-  const user = getUserByUsername(username);
+  const user = getUserByUsername(loginName);
   if (!user) {
     return res.json({ success: false, message: '用户名或密码错误' });
   }
