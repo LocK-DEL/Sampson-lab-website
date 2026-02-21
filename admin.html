@@ -268,7 +268,7 @@
         // 检查登录状态
         async function checkAuth() {
             try {
-                const res = await fetch('/api/user');
+                const res = await fetch('/api/user', {credentials: 'include'});
                 const data = await res.json();
                 
                 if (!data.authenticated || !data.isAdmin) {
@@ -287,7 +287,7 @@
         // 加载用户列表
         async function loadUsers() {
             try {
-                const res = await fetch('/api/users');
+                const res = await fetch('/api/users', {credentials: 'include'});
                 const data = await res.json();
                 
                 if (!data.success) {
@@ -332,6 +332,7 @@
                 const res = await fetch('/api/admin/add-user', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
+                    credentials: 'include',
                     body: JSON.stringify({username, password, role})
                 });
                 const data = await res.json();
@@ -356,6 +357,7 @@
                 const res = await fetch('/api/admin/delete-user', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
+                    credentials: 'include',
                     body: JSON.stringify({username})
                 });
                 const data = await res.json();
@@ -373,7 +375,7 @@
         
         // 退出登录
         async function logout() {
-            await fetch('/api/logout', {method: 'POST'});
+            await fetch('/api/logout', {method: 'POST', credentials: 'include'});
             window.location.href = '/login.html';
         }
         
