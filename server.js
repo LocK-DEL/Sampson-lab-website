@@ -58,13 +58,43 @@ app.use(express.static(__dirname, {
   extensions: ['html']
 }));
 
-// 登录页面 - 公开访问
+// 首页 - 检查是否登录，未登录则跳转登录页
+app.get('/', (req, res, next) => {
+  const token = req.cookies.token;
+  if (!token) {
+    return res.redirect('/login.html');
+  }
+  try {
+    jwt.verify(token, JWT_SECRET);
+    // 已登录，提供首页
+    res.sendFile(path.join(__dirname, 'index.html'));
+  } catch {
+    // token 无效，跳转登录
+    res.redirect('/login.html');
+  }
+});
+
+// 登录页面 - 公开访问（已登录用户直接跳转首页）
 app.get('/login', (req, res) => {
+  const token = req.cookies.token;
+  if (token) {
+    try {
+      jwt.verify(token, JWT_SECRET);
+      return res.redirect('/');
+    } catch {}
+  }
   res.sendFile(path.join(__dirname, 'login.html'));
 });
 
 // 登录页面 - 也支持 /login.html
 app.get('/login.html', (req, res) => {
+  const token = req.cookies.token;
+  if (token) {
+    try {
+      jwt.verify(token, JWT_SECRET);
+      return res.redirect('/');
+    } catch {}
+  }
   res.sendFile(path.join(__dirname, 'login.html'));
 });
 
@@ -198,7 +228,7 @@ app.post('/login', async (req, res) => {
       success: true, 
       message: '登录成功',
       csrfToken,
-      redirect: '/index.html'
+      redirect: '/'
     });
     
   } catch (error) {
