@@ -54,13 +54,6 @@
     #backToTop:hover {
       background-color: #145c5c;
     }
-    #username-display {
-      color: #4CAF50;
-      font-weight: bold;
-    }
-    #logout-btn {
-      color: #ff6b6b;
-    }
     .member-card img.member-photo {
     width: 160px !important;
     height: 200px !important;
@@ -132,8 +125,6 @@
     <li><a href="#photos">实验室照片</a></li>
     <li><a href="#admission">招生信息</a></li>
     <li><a href="exam.html">在线考试</a></li>
-    <li id="admin-nav" style="display:none;"><a href="admin.html">管理后台</a></li>
-    <li id="auth-nav"><a href="login.html">登录</a></li>
   </ul>
 </nav>
 </header>
@@ -1278,35 +1269,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <!-- 返回顶部按钮（必须有这个元素，脚本才有目标） -->
 <button id="backToTop" aria-label="返回顶部">↑</button>
-
-<!-- 登录状态检查 -->
-<script>
-(async () => {
-  try {
-    const res = await fetch('/api/user', {credentials: 'include'});
-    const data = await res.json();
-    const navAuth = document.getElementById('auth-nav');
-    const navAdmin = document.getElementById('admin-nav');
-    
-    if (data.authenticated && navAuth) {
-      navAuth.innerHTML = '<span id="username-display">' + data.username + '</span> | <a href="#" id="logout-btn">退出</a>';
-      
-      // 如果是管理员，显示管理入口
-      if (data.isAdmin && navAdmin) {
-        navAdmin.style.display = 'block';
-      }
-      
-      document.getElementById('logout-btn').addEventListener('click', async (e) => {
-        e.preventDefault();
-        await fetch('/api/logout', { method: 'POST', credentials: 'include' });
-        window.location.href = '/login.html';
-      });
-    }
-  } catch (err) {
-    console.error('检查登录状态失败:', err);
-  }
-})();
-</script>
 
   </body>
 
