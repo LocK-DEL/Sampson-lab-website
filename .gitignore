@@ -1,8 +1,11 @@
 # Dependencies
 node_modules/
 
-# User data (contains passwords!)
-users.json
+# Build output
+out/
+
+# Database (runtime artifact)
+sampson.db
 
 # Environment variables
 .env

@@ -1,321 +1,47 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>登录 - SAMPSON科研实验组</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Cinzel', 'Microsoft YaHei', sans-serif;
-            background: linear-gradient(135deg, #1a3e3e 0%, #0d2020 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .login-wrapper {
-            width: 100%;
-            max-width: 420px;
-        }
-        .login-container {
-            background: rgba(255, 255, 255, 0.98);
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-            overflow: hidden;
-        }
-        .login-header {
-            background: linear-gradient(135deg, #1a3e3e, #2d6b6b);
-            padding: 30px;
-            text-align: center;
-        }
-        .login-header .logo {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 15px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-        }
-        .login-header h1 {
-            color: white;
-            font-size: 22px;
-            font-weight: 600;
-            letter-spacing: 2px;
-        }
-        .login-header p {
-            color: rgba(255,255,255,0.8);
-            font-size: 13px;
-            margin-top: 8px;
-        }
-        .login-body {
-            padding: 30px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 600;
-            font-size: 14px;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 14px 16px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 15px;
-            transition: all 0.3s;
-            background: #f8f8f8;
-        }
-        .form-group input:focus {
-            outline: none;
-            border-color: #1a3e3e;
-            background: white;
-            box-shadow: 0 0 0 4px rgba(26,62,62,0.1);
-        }
-        .btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #1a3e3e, #2d6b6b);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            letter-spacing: 1px;
-        }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(26,62,62,0.3);
-        }
-        .btn:active {
-            transform: translateY(0);
-        }
-        .btn-secondary {
-            background: linear-gradient(135deg, #666, #888);
-            margin-top: 12px;
-        }
-        .btn-secondary:hover {
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        }
-        .message {
-            padding: 14px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 14px;
-        }
-        .message.error {
-            background: #fff0f0;
-            color: #e53935;
-            border: 1px solid #ffcdd2;
-        }
-        .message.success {
-            background: #e8f5e9;
-            background: linear-gradient(135deg, #1a3e3e, #2d6b6b);
-            color: white;
-        }
-        .switch-mode {
-            text-align: center;
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }
-        .switch-mode a {
-            color: #1a3e3e;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-        }
-        .switch-mode a:hover {
-            text-decoration: underline;
-        }
-        .switch-mode span {
-            color: #999;
-            margin: 0 10px;
-        }
-        .hidden {
-            display: none;
-        }
-        .back-home {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .back-home a {
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-            font-size: 13px;
-        }
-        .back-home a:hover {
-            color: white;
-            text-decoration: underline;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="2; url=index.html">
+  <title>SAMPSON科研实验组</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Microsoft YaHei', sans-serif;
+      background: linear-gradient(135deg, #1a3e3e 0%, #0d2020 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .box {
+      background: rgba(255,255,255,0.95);
+      border-radius: 16px;
+      padding: 40px 50px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .box h1 { color: #1a3e3e; margin-bottom: 12px; font-size: 22px; }
+    .box p  { color: #555; font-size: 15px; margin-bottom: 24px; }
+    .box a  {
+      display: inline-block;
+      padding: 12px 28px;
+      background: linear-gradient(135deg, #1a3e3e, #2d6b6b);
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .box a:hover { opacity: 0.9; }
+  </style>
 </head>
 <body>
-    <div class="login-wrapper">
-        <div class="login-container">
-            <div class="login-header">
-                <div class="logo">🔬</div>
-                <h1>SAMPSON 科研实验组</h1>
-                <p>成员登录系统</p>
-            </div>
-            
-            <div class="login-body">
-                <div id="message" class="message hidden"></div>
-                
-                <!-- 登录表单 -->
-                <form id="login-form">
-                    <div class="form-group">
-                        <label for="username">用户名</label>
-                        <input type="text" id="username" name="username" required placeholder="请输入用户名/账号" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">密码</label>
-                        <input type="password" id="password" name="password" required placeholder="请输入密码" autocomplete="current-password">
-                    </div>
-                    <button type="submit" class="btn">登 录</button>
-                    <button type="button" class="btn btn-secondary" onclick="showRegister()">注册新账号</button>
-                </form>
-                
-                <!-- 注册表单 -->
-                <form id="register-form" class="hidden">
-                    <div class="form-group">
-                        <label for="reg-username">用户名</label>
-                        <input type="text" id="reg-username" name="username" required placeholder="至少3个字符" minlength="3">
-                    </div>
-                    <div class="form-group">
-                        <label for="reg-password">密码</label>
-                        <input type="password" id="reg-password" name="password" required placeholder="至少6个字符" minlength="6">
-                    </div>
-                    <div class="form-group">
-                        <label for="reg-password2">确认密码</label>
-                        <input type="password" id="reg-password2" name="password2" required placeholder="再次输入密码">
-                    </div>
-                    <button type="submit" class="btn">注 册</button>
-                    <button type="button" class="btn btn-secondary" onclick="showLogin()">已有账号？登录</button>
-                </form>
-            </div>
-        </div>
-        
-        <div class="back-home">
-            <a href="/">← 返回首页</a>
-        </div>
-    </div>
-
-    <script>
-        // 显示消息
-        function showMessage(text, type) {
-            const msg = document.getElementById('message');
-            msg.textContent = text;
-            msg.className = 'message ' + type;
-            msg.classList.remove('hidden');
-        }
-        
-        // 切换到注册
-        function showRegister() {
-            document.getElementById('login-form').classList.add('hidden');
-            document.getElementById('register-form').classList.remove('hidden');
-            document.getElementById('message').classList.add('hidden');
-        }
-        
-        // 切换到登录
-        function showLogin() {
-            document.getElementById('register-form').classList.add('hidden');
-            document.getElementById('login-form').classList.remove('hidden');
-            document.getElementById('message').classList.add('hidden');
-        }
-        
-        // 登录提交
-        document.getElementById('login-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value;
-            
-            if (!username || !password) {
-                showMessage('请输入用户名和密码', 'error');
-                return;
-            }
-            
-            try {
-                const res = await fetch('/api/login', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    credentials: 'include',
-                    body: JSON.stringify({username, password})
-                });
-                const data = await res.json();
-                
-                if (data.success) {
-                    showMessage('登录成功！正在跳转...', 'success');
-                    setTimeout(() => {
-                        // 管理员跳转到管理页面，普通用户跳转到首页
-                        if (data.isAdmin) {
-                            window.location.href = '/admin.html';
-                        } else {
-                            window.location.href = '/';
-                        }
-                    }, 800);
-                } else {
-                    showMessage(data.message || '登录失败，请检查用户名和密码', 'error');
-                }
-            } catch (err) {
-                showMessage('网络错误，请稍后重试', 'error');
-                console.error(err);
-            }
-        });
-        
-        // 注册提交
-        document.getElementById('register-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const username = document.getElementById('reg-username').value.trim();
-            const password = document.getElementById('reg-password').value;
-            const password2 = document.getElementById('reg-password2').value;
-            
-            if (!username || !password) {
-                showMessage('请填写完整信息', 'error');
-                return;
-            }
-            
-            if (password !== password2) {
-                showMessage('两次密码输入不一致', 'error');
-                return;
-            }
-            
-            try {
-                const res = await fetch('/api/register', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    credentials: 'include',
-                    body: JSON.stringify({username, password})
-                });
-                const data = await res.json();
-                
-                if (data.success) {
-                    showMessage('注册成功！请登录', 'success');
-                    setTimeout(showLogin, 1500);
-                } else {
-                    showMessage(data.message || '注册失败', 'error');
-                }
-            } catch (err) {
-                showMessage('网络错误，请稍后重试', 'error');
-                console.error(err);
-            }
-        });
-    </script>
+  <div class="box">
+    <h1>🔬 SAMPSON 科研实验组</h1>
+    <p>本网站已升级为静态展示版本，无需登录即可访问。<br>正在自动跳转到首页…</p>
+    <a href="index.html">立即前往首页</a>
+  </div>
 </body>
 </html>
